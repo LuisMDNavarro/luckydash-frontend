@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 export default function LoginForm() {
   const [formData, setFormData] = useState<LoginRequest>({
-    email: '',
+    username: '',
     password: '',
   })
 
@@ -28,18 +28,18 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="formTittle">
-        <h2>Welcome back!</h2>
+        <h2>¡Bienvenido de nuevo!</h2>
       </div>
 
       <div className="input-container">
         <input
-          type="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          name="username"
+          value={formData.username}
           onChange={handleChange}
           required
         />
-        <label className="label">Email</label>
+        <label className="label">Nombre de Usuario</label>
         <div className="underline"></div>
       </div>
 
@@ -51,7 +51,7 @@ export default function LoginForm() {
           onChange={handleChange}
           required
         />
-        <label className="label">Password</label>
+        <label className="label">Contraseña</label>
         <div className="underline"></div>
       </div>
 
@@ -61,7 +61,7 @@ export default function LoginForm() {
         </button>
         <Link to="/register">
           <button type="button" className="button">
-            <span>Register</span>
+            <span>Registro</span>
           </button>
         </Link>
       </div>

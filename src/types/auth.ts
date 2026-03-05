@@ -1,11 +1,11 @@
 export interface LoginRequest {
-  email: string
+  username: string
   password: string
 }
 
 export interface RegisterRequest {
-  name: string
-  email: string
+  username: string
+  wallet: string
   password: string
   confirmPassword: string
 }

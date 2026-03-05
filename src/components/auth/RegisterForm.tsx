@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState<RegisterRequest>({
-    name: '',
-    email: '',
+    username: '',
+    wallet: '',
     password: '',
     confirmPassword: '',
   })
@@ -30,30 +30,30 @@ export default function RegisterForm() {
   return (
     <form onSubmit={handleSubmit}>
       <div className="formTittle">
-        <h2>Let's create your account!</h2>
+        <h2>¡Vamos a crear tu cuenta!</h2>
       </div>
 
       <div className="input-container">
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="username"
+          value={formData.username}
           onChange={handleChange}
           required
         />
-        <label className="label">Name</label>
+        <label className="label">Nombre de Usuario</label>
         <div className="underline"></div>
       </div>
 
       <div className="input-container">
         <input
-          type="email"
-          name="email"
-          value={formData.email}
+          type="text"
+          name="wallet"
+          value={formData.wallet}
           onChange={handleChange}
           required
         />
-        <label className="label">Email</label>
+        <label className="label">Cartera</label>
         <div className="underline"></div>
       </div>
 
@@ -77,7 +77,7 @@ export default function RegisterForm() {
           onChange={handleChange}
           required
         />
-        <label className="label">Confirm Password</label>
+        <label className="label">Confirmar Contraseña</label>
         <div className="underline"></div>
       </div>
 
@@ -88,7 +88,7 @@ export default function RegisterForm() {
           </button>
         </Link>
         <button type="submit" className="submitButton">
-          <span>Register</span>
+          <span>Registro</span>
         </button>
       </div>
     </form>
