@@ -1,5 +1,5 @@
-import RegisterForm from '../components/auth/RegisterForm'
-import './Auth.css'
+import RegisterForm from '../../components/auth/RegisterForm'
+import '../../styles/Auth.css'
 
 export default function Register() {
   return (
