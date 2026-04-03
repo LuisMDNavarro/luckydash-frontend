@@ -6,8 +6,10 @@ import type { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../utils/Loader'
+import { useAuth } from '../../context/AuthContext'
 
 export default function LoginForm() {
+  const { setIsAuthenticated } = useAuth()
   const navigate = useNavigate()
 
   const [loading, setLoading] = useState(false)
@@ -32,6 +34,7 @@ export default function LoginForm() {
 
     try {
       await login(formData)
+      setIsAuthenticated(true)
       toast.success('Bienvenido!')
       navigate('/main')
     } catch (error) {

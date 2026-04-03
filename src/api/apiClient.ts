@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { updateAuthState } from './authStore'
 
 const apiClient = axios.create({
   baseURL: 'http://localhost:8000/',
@@ -22,9 +23,10 @@ apiClient.interceptors.response.use(
 
       try {
         await apiClient.post('/users/refresh/')
+        updateAuthState(true)
         return apiClient(originalRequest)
       } catch (refreshError) {
-        window.location.href = '/login'
+        updateAuthState(false)
         return Promise.reject(refreshError)
       }
     }

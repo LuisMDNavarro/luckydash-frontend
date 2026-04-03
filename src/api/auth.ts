@@ -29,3 +29,11 @@ export const refresh = async (
   const request = await apiClient.post<RefreshResponse>('/users/login/', data)
   return request.data
 }
+
+export const getMe = async () => {
+  return apiClient.get('/users/')
+}
+
+export const logout = async (): Promise<void> => {
+  await apiClient.post('/users/logout/')
+}
