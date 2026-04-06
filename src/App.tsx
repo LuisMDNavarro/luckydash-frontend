@@ -8,6 +8,8 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 import PublicRoute from './components/auth/PublicRoute'
 import { useAuth } from './context/AuthContext'
 import Loader from './components/utils/Loader'
+import AccountsList from './pages/finances/Accounts'
+import ViewProfile from './pages/users/Profile'
 
 function App() {
   const { isAuthenticated } = useAuth()
@@ -49,6 +51,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Main />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/wallet/accounts/list"
+          element={
+            <ProtectedRoute>
+              <AccountsList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/profile/view"
+          element={
+            <ProtectedRoute>
+              <ViewProfile />
             </ProtectedRoute>
           }
         />
