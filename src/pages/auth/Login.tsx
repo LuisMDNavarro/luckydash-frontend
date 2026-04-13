@@ -4,7 +4,7 @@ import '../../styles/Auth.css'
 export default function Login() {
   return (
     <div className="page-container-login">
-      <div className="card">
+      <div className="auth-card">
         <LoginForm />
       </div>
     </div>

@@ -52,11 +52,11 @@ export default function LoginForm() {
     <>
       <Loader loading={loading} />
       <form onSubmit={handleSubmit}>
-        <div className="formTittle">
+        <div className="auth-formTittle">
           <h2>¡Bienvenido de nuevo!</h2>
         </div>
 
-        <div className="input-container">
+        <div className="auth-input-container">
           <input
             type="text"
             name="username"
@@ -64,11 +64,11 @@ export default function LoginForm() {
             onChange={handleChange}
             required
           />
-          <label className="label">Nombre de Usuario</label>
-          <div className="underline"></div>
+          <label className="auth-label">Nombre de Usuario</label>
+          <div className="auth-underline"></div>
         </div>
 
-        <div className="input-container">
+        <div className="auth-input-container">
           <input
             type="password"
             name="password"
@@ -76,16 +76,16 @@ export default function LoginForm() {
             onChange={handleChange}
             required
           />
-          <label className="label">Contraseña</label>
-          <div className="underline"></div>
+          <label className="auth-label">Contraseña</label>
+          <div className="auth-underline"></div>
         </div>
 
-        <div className="formControl">
-          <button type="submit" className="submitButton">
+        <div className="auth-formControl">
+          <button type="submit" className="auth-submitButton">
             <span>Login</span>
           </button>
           <Link to="/register">
-            <button type="button" className="button">
+            <button type="button" className="auth-button">
               <span>Registro</span>
             </button>
           </Link>

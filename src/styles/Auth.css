@@ -19,7 +19,7 @@
   color: #ffffff;
 }
 
-.card {
+.auth-card {
   background: #0d1117;
   padding: 2rem;
   border-radius: 8px;
@@ -28,27 +28,27 @@
   box-shadow: 0 10px 25px white;
 }
 
-.formTittle {
+.auth-formTittle {
   color: white;
   display: flex;
   justify-content: end;
 }
 
-.formControl {
+.auth-formControl {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 40px;
 }
 
-.input-container {
+.auth-input-container {
   position: relative;
   margin: 40px auto;
   margin-bottom: 0px;
   width: 90%;
 }
 
-.input-container input {
+.auth-input-container input {
   font-size: 16px;
   width: 100%;
   border: none;
@@ -59,7 +59,7 @@
   color: white;
 }
 
-.input-container .label {
+.auth-input-container .auth-label {
   position: absolute;
   top: 0;
   left: 0;
@@ -68,14 +68,14 @@
   pointer-events: none;
 }
 
-.input-container input:focus ~ .label,
-.input-container input:valid ~ .label {
+.auth-input-container input:focus ~ .auth-label,
+.auth-input-container input:valid ~ .auth-label {
   top: -20px;
   font-size: 16px;
   color: #333;
 }
 
-.input-container .underline {
+.auth-input-container .underline {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -86,12 +86,12 @@
   transition: all 0.3s ease;
 }
 
-.input-container input:focus ~ .underline,
-.input-container input:valid ~ .underline {
+.auth-input-container input:focus ~ .auth-underline,
+.auth-input-container input:valid ~ .auth-underline {
   transform: scaleX(1);
 }
 
-.button {
+.auth-button {
   width: 100px;
   padding: 0;
   border: none;
@@ -106,7 +106,7 @@
   background-color: #0d1117;
 }
 
-.button span {
+.auth-button span {
   background: #0d1117;
   display: block;
   padding: 0.5rem 1rem;
@@ -115,18 +115,18 @@
   color: white;
 }
 
-.button:hover {
+.auth-button:hover {
   background-color: #3d444d;
   transform: translateY(-2px);
 }
 
-.button:active {
+.auth-button:active {
   transform: translateY(5px);
   padding-bottom: 0px;
   outline: 0;
 }
 
-.submitButton {
+.auth-submitButton {
   width: 100px;
   padding: 0;
   border: none;
@@ -141,7 +141,7 @@
   background-color: #238636;
 }
 
-.submitButton span {
+.auth-submitButton span {
   background: #f1f5f8;
   display: block;
   padding: 0.5rem 1rem;
@@ -149,18 +149,18 @@
   border: 2px solid #449854;
 }
 
-.submitButton:hover {
+.auth-submitButton:hover {
   background-color: #449854;
   transform: translateY(-2px);
 }
 
-.submitButton:active {
+.auth-submitButton:active {
   transform: translateY(5px);
   padding-bottom: 0px;
   outline: 0;
 }
 
-.errors {
+.auth-errors {
   color: #b30000;
   margin: 40px auto;
   margin-top: 0px;
