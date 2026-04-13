@@ -6,11 +6,10 @@ import type { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../utils/Loader'
+import { useMutation } from '@tanstack/react-query'
 
 export default function RegisterForm() {
   const navigate = useNavigate()
-
-  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState<RegisterRequest>({
     username: '',
@@ -28,30 +27,35 @@ export default function RegisterForm() {
       ...prev,
       [name]: value,
     }))
+
+    setErrors((prev) => {
+      const newErrors = { ...prev }
+      delete newErrors[name]
+      return newErrors
+    })
   }
+
+  const mutation = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
+      toast.success('Tu registro fue exitoso!')
+      navigate('/login')
+    },
+    onError: (error: AxiosError<RegisterResponse>) => {
+      if (error.response?.data?.errors) {
+        setErrors(error.response?.data?.errors)
+      }
+    },
+  })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setLoading(true)
-
-    try {
-      await register(formData)
-      toast.success('Tu registro fue exitoso!')
-      navigate('/login')
-    } catch (error) {
-      const e = error as AxiosError<RegisterResponse>
-      if (e.response?.data?.errors) {
-        setErrors(e.response?.data?.errors)
-        return
-      }
-    } finally {
-      setLoading(false)
-    }
+    mutation.mutate(formData)
   }
 
   return (
     <>
-      <Loader loading={loading} />
+      {mutation.isPending && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="auth-formTittle">
           <h2>¡Vamos a crear tu cuenta!</h2>
@@ -99,7 +103,9 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.password && <p className="auth-errors">{errors.password[0]}</p>}
+          {errors.password && (
+            <p className="auth-errors">{errors.password[0]}</p>
+          )}
         </div>
 
         <div className="auth-input-container">

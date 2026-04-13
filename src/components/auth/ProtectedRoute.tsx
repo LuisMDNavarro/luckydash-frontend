@@ -1,20 +1,25 @@
 import type React from 'react'
 import { Navigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
 import Loader from '../../components/utils/Loader'
+import { useQuery } from '@tanstack/react-query'
+import { getProfile } from '../../api/user'
 
 export default function ProtectedRoute({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const { isAuthenticated } = useAuth()
+  const { isLoading, isError } = useQuery({
+    queryKey: ['profile'],
+    queryFn: getProfile,
+    retry: false,
+  })
 
-  if (isAuthenticated === null) {
-    return <Loader loading={true} />
+  if (isLoading) {
+    return <Loader />
   }
 
-  if (!isAuthenticated) {
+  if (isError) {
     return <Navigate to="/login" replace />
   }
 

@@ -1,36 +1,35 @@
-import { useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { logout } from '../../api/auth'
 import Loader from '../utils/Loader'
 import { toast } from 'react-toastify'
-import { useAuth } from '../../context/AuthContext'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 export default function Navbar() {
-  const { setIsAuthenticated } = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
   type Paths = '/main' | '/users' | '/wallet'
   const isActive = (path: Paths) => location.pathname.startsWith(path)
-  const [loading, setLoading] = useState(false)
 
-  const handleLogout = async () => {
-    setLoading(true)
-
-    try {
-      await logout()
-      setIsAuthenticated(false)
+  const queryClient = useQueryClient()
+  const mutation = useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      queryClient.clear()
       toast.success('Hasta pronto!')
       navigate('/login')
-    } catch (error) {
+    },
+    onError: () => {
       toast.error('Error al cerrar la sesión')
-    } finally {
-      setLoading(false)
-    }
+    },
+  })
+
+  const handleLogout = async () => {
+    mutation.mutate()
   }
 
   return (
     <>
-      <Loader loading={loading} />
+      {mutation.isPending && <Loader />}
       <div className="navbar-container">
         <div className="navbar">
           <div className={`btn ${isActive('/main') ? 'active' : ''}`}>

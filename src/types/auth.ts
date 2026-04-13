@@ -32,9 +32,3 @@ export interface RefreshResponse {
   detail?: string
   code?: string
 }
-
-export interface User {
-  uid: string
-  name: string
-  email: string
-}

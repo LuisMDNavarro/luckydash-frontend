@@ -6,13 +6,10 @@ import type { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 import Loader from '../utils/Loader'
-import { useAuth } from '../../context/AuthContext'
+import { useMutation } from '@tanstack/react-query'
 
 export default function LoginForm() {
-  const { setIsAuthenticated } = useAuth()
   const navigate = useNavigate()
-
-  const [loading, setLoading] = useState(false)
 
   const [formData, setFormData] = useState<LoginRequest>({
     username: '',
@@ -28,29 +25,27 @@ export default function LoginForm() {
     }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-
-    try {
-      await login(formData)
-      setIsAuthenticated(true)
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
       toast.success('Bienvenido!')
       navigate('/main')
-    } catch (error) {
-      const e = error as AxiosError<LoginResponse>
-      if (e.response?.data?.detail) {
+    },
+    onError: (error: AxiosError<LoginResponse>) => {
+      if (error.response?.data?.detail) {
         toast.error('Usuario o contraseña incorrectos')
-        return
       }
-    } finally {
-      setLoading(false)
-    }
+    },
+  })
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    mutation.mutate(formData)
   }
 
   return (
     <>
-      <Loader loading={loading} />
+      {mutation.isPending && <Loader />}
       <form onSubmit={handleSubmit}>
         <div className="auth-formTittle">
           <h2>¡Bienvenido de nuevo!</h2>

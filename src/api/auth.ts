@@ -30,10 +30,6 @@ export const refresh = async (
   return request.data
 }
 
-export const getMe = async () => {
-  return apiClient.get('/users/')
-}
-
 export const logout = async (): Promise<void> => {
   await apiClient.post('/users/logout/')
 }

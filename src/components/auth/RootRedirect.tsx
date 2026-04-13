@@ -1,15 +1,10 @@
-import type React from 'react'
 import { Navigate } from 'react-router-dom'
 import Loader from '../../components/utils/Loader'
 import { useQuery } from '@tanstack/react-query'
 import { getProfile } from '../../api/user'
 
-export default function PublicRoute({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  const { data, isLoading } = useQuery({
+export default function RootRedirect() {
+  const { isLoading, isError } = useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
     retry: false,
@@ -19,9 +14,9 @@ export default function PublicRoute({
     return <Loader />
   }
 
-  if (data) {
-    return <Navigate to="/main" replace />
+  if (isError) {
+    return <Navigate to="/login" replace />
   }
 
-  return <>{children}</>
+  return <Navigate to="/main" replace />
 }

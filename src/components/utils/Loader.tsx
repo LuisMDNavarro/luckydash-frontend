@@ -1,11 +1,6 @@
 import '../../styles/loader.css'
 
-type LoaderProps = {
-  loading: boolean
-}
-
-export default function Loader({ loading }: LoaderProps) {
-  if (!loading) return null
+export default function Loader() {
   return (
     <div className="loader-overlay">
       <div className="newtons-cradle">
