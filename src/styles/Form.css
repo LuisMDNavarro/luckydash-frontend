@@ -1,0 +1,109 @@
+.form-container {
+  background: #0d1117;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 300px;
+  border: 2px solid #3d444d;
+}
+
+.form-tittle {
+  color: #fff;
+  display: flex;
+  justify-content: start;
+}
+
+.form-input-span {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 10px 0px;
+}
+
+.form-input-span input {
+  border-radius: 5px;
+  padding: 10px 5px;
+  width: 95%;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #0d1117;
+  outline: 2px solid #707070;
+  color: #fff;
+  font-size: 16px;
+}
+
+.form-input-span input:focus {
+  outline: 2px solid #fff;
+}
+
+.form-label {
+  align-self: flex-start;
+  color: #ffffffbb;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.form-control {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: end;
+}
+
+.form-submitButton {
+  display: flex;
+  justify-content: center;
+  width: 100px;
+  padding: 0;
+  border: none;
+  transform: rotate(5deg);
+  transform-origin: center;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  padding-bottom: 3px;
+  border-radius: 5px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  background-color: #588fbc;
+}
+
+.form-submitButton span {
+  background: #f1f5f8;
+  display: block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: 2px solid #588fbc;
+}
+
+.form-submitButton:hover {
+  transform: translateY(-2px);
+}
+
+.form-submitButton:active {
+  transform: translateY(5px);
+  padding: 0;
+  outline: 0;
+}
+
+.codex--loader {
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-width='2' d='M12 6.99998C9.1747 6.99987 6.99997 9.24998 7 12C7.00003 14.55 9.02119 17 12 17C14.7712 17 17 14.75 17 12'%3E%3CanimateTransform attributeName='transform' attributeType='XML' dur='560ms' from='0,12,12' repeatCount='indefinite' to='360,12,12' type='rotate'/%3E%3C/path%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.form-errors {
+  color: #b30000;
+  margin-top: 0px;
+  width: 90%;
+  position: relative;
+}
