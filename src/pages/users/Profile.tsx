@@ -1,6 +1,8 @@
 import Navbar from '../../components/layout/Navbar'
 import Sidebar from '../../components/layout/Sidebar'
 import '../../styles/Layout.css'
+import Profile from '../../components/users/Profile'
+import '../../styles/Form.css'
 
 export default function ViewProfile() {
   return (
@@ -10,7 +12,7 @@ export default function ViewProfile() {
         <div className="main-content">
           <Navbar />
           <div className="page-content">
-            <p>Profile Content</p>
+            <Profile />
           </div>
         </div>
       </div>
