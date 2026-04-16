@@ -50,6 +50,32 @@ export default function RegisterForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const newErrors: Record<string, string[]> = {}
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/
+
+    if (formData.username.length > 50) {
+      newErrors.username = ['Máximo 50 caracteres permitidos']
+    }
+
+    if (formData.wallet.length > 50) {
+      newErrors.wallet = ['Máximo 50 caracteres permitidos']
+    }
+
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password = [
+        'La contraseña debe tener al menos 8 caracteres, letras y números',
+      ]
+    }
+
+    if (formData.password !== formData.confirm_password) {
+      newErrors.confirm_password = ['Las contraseñas no coinciden.']
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
     mutation.mutate(formData)
   }
 
@@ -67,6 +93,7 @@ export default function RegisterForm() {
             name="username"
             value={formData.username}
             onChange={handleChange}
+            maxLength={50}
             required
           />
           <label className="auth-label">Nombre de Usuario</label>
@@ -83,6 +110,7 @@ export default function RegisterForm() {
             value={formData.wallet}
             onChange={handleChange}
             required
+            maxLength={50}
           />
           <label className="auth-label">Cartera</label>
           <div className="auth-underline"></div>

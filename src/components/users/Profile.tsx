@@ -71,6 +71,25 @@ export default function Profile() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    const newErrors: Record<string, string[]> = {}
+
+    if (formData.username.length > 50) {
+      newErrors.username = ['Máximo 50 caracteres permitidos']
+    }
+
+    if (formData.first_name.length > 75) {
+      newErrors.first_name = ['Máximo 75 caracteres permitidos']
+    }
+
+    if (formData.last_name.length > 100) {
+      newErrors.last_name = ['Máximo 100 caracteres permitidos']
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
     mutation.mutate(formData)
   }
 
@@ -96,6 +115,7 @@ export default function Profile() {
               name="username"
               value={formData.username}
               onChange={handleChange}
+              maxLength={50}
             />
           </span>
           <div className="form-errors">
@@ -120,6 +140,7 @@ export default function Profile() {
               name="first_name"
               value={formData.first_name}
               onChange={handleChange}
+              maxLength={75}
             />
           </span>
           <div className="form-errors">
@@ -132,6 +153,7 @@ export default function Profile() {
               name="last_name"
               value={formData.last_name}
               onChange={handleChange}
+              maxLength={100}
             />
           </span>
           <div className="form-errors">
