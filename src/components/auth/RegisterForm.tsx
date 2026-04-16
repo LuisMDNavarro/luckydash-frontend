@@ -53,8 +53,16 @@ export default function RegisterForm() {
     const newErrors: Record<string, string[]> = {}
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).{8,}$/
 
+    if (formData.username.length == 0) {
+      newErrors.username = ['Este campo no puede estar vacio']
+    }
+
     if (formData.username.length > 50) {
       newErrors.username = ['Máximo 50 caracteres permitidos']
+    }
+
+    if (formData.wallet.length == 0) {
+      newErrors.wallet = ['Este campo no puede estar vacio']
     }
 
     if (formData.wallet.length > 50) {
@@ -67,8 +75,16 @@ export default function RegisterForm() {
       ]
     }
 
+    if (formData.password.length == 0) {
+      newErrors.password = ['Este campo no puede estar vacio']
+    }
+
     if (formData.password !== formData.confirm_password) {
       newErrors.confirm_password = ['Las contraseñas no coinciden.']
+    }
+
+    if (formData.confirm_password.length == 0) {
+      newErrors.confirm_password = ['Este campo no puede estar vacio']
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -86,7 +102,6 @@ export default function RegisterForm() {
         <div className="auth-formTittle">
           <h2>¡Vamos a crear tu cuenta!</h2>
         </div>
-
         <div className="auth-input-container">
           <input
             type="text"
@@ -102,7 +117,6 @@ export default function RegisterForm() {
         <div className="auth-errors">
           {errors.username && <p>{errors.username[0]}</p>}
         </div>
-
         <div className="auth-input-container">
           <input
             type="text"
@@ -116,9 +130,8 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.wallet && <p className="auth-errors">{errors.wallet[0]}</p>}
+          {errors.wallet && <p>{errors.wallet[0]}</p>}
         </div>
-
         <div className="auth-input-container">
           <input
             type="password"
@@ -131,11 +144,8 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.password && (
-            <p className="auth-errors">{errors.password[0]}</p>
-          )}
+          {errors.password && <p>{errors.password[0]}</p>}
         </div>
-
         <div className="auth-input-container">
           <input
             type="password"
@@ -148,11 +158,8 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.confirm_password && (
-            <p className="auth-errors">{errors.confirm_password[0]}</p>
-          )}
+          {errors.confirm_password && <p>{errors.confirm_password[0]}</p>}
         </div>
-
         <div className="auth-formControl">
           <Link to="/login">
             <button type="button" className="auth-button">

@@ -72,9 +72,22 @@ export default function Profile() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const newErrors: Record<string, string[]> = {}
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+    if (formData.username.length == 0) {
+      newErrors.username = ['Este campo no puede estar vacio']
+    }
 
     if (formData.username.length > 50) {
       newErrors.username = ['Máximo 50 caracteres permitidos']
+    }
+
+    if (formData.email.length > 150) {
+      newErrors.email = ['Máximo 150 caracteres permitidos']
+    }
+
+    if (!emailRegex.test(formData.email)) {
+      newErrors.email = ['Correo inválido']
     }
 
     if (formData.first_name.length > 75) {
@@ -116,6 +129,7 @@ export default function Profile() {
               value={formData.username}
               onChange={handleChange}
               maxLength={50}
+              required
             />
           </span>
           <div className="form-errors">
@@ -128,6 +142,7 @@ export default function Profile() {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              maxLength={150}
             />
           </span>
           <div className="form-errors">
@@ -171,7 +186,6 @@ export default function Profile() {
                 <span>Actualizar</span>
               )}
             </button>
-            <br></br>
           </div>
         </form>
       </div>

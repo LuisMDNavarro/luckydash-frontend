@@ -16,6 +16,8 @@ export default function LoginForm() {
     password: '',
   })
 
+  const [errors, setErrors] = useState<Record<string, string[]>>({})
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
@@ -23,6 +25,12 @@ export default function LoginForm() {
       ...prev,
       [name]: value,
     }))
+
+    setErrors((prev) => {
+      const newErrors = { ...prev }
+      delete newErrors[name]
+      return newErrors
+    })
   }
 
   const mutation = useMutation({
@@ -40,6 +48,21 @@ export default function LoginForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    const newErrors: Record<string, string[]> = {}
+
+    if (formData.username.length == 0) {
+      newErrors.username = ['Este campo no puede estar vacio']
+    }
+
+    if (formData.password.length == 0) {
+      newErrors.password = ['Este campo no puede estar vacio']
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors)
+      return
+    }
+
     mutation.mutate(formData)
   }
 
@@ -62,7 +85,9 @@ export default function LoginForm() {
           <label className="auth-label">Nombre de Usuario</label>
           <div className="auth-underline"></div>
         </div>
-
+        <div className="auth-errors">
+          {errors.username && <p>{errors.username[0]}</p>}
+        </div>
         <div className="auth-input-container">
           <input
             type="password"
@@ -74,7 +99,9 @@ export default function LoginForm() {
           <label className="auth-label">Contraseña</label>
           <div className="auth-underline"></div>
         </div>
-
+        <div className="auth-errors">
+          {errors.password && <p>{errors.password[0]}</p>}
+        </div>
         <div className="auth-formControl">
           <button type="submit" className="auth-submitButton">
             <span>Login</span>
