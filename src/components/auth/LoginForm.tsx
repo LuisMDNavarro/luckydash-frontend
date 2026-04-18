@@ -33,13 +33,17 @@ export default function LoginForm() {
     })
   }
 
-  const mutation = useMutation({
+  const mutation = useMutation<
+    LoginResponse,
+    AxiosError<LoginResponse>,
+    LoginRequest
+  >({
     mutationFn: login,
     onSuccess: () => {
       toast.success('Bienvenido!')
       navigate('/main')
     },
-    onError: (error: AxiosError<LoginResponse>) => {
+    onError: (error) => {
       if (error.response?.data?.detail) {
         toast.error('Usuario o contraseña incorrectos')
       }

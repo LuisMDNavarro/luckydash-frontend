@@ -4,8 +4,8 @@ import type {
   RegisterResponse,
   LoginRequest,
   LoginResponse,
-  RefreshRequest,
   RefreshResponse,
+  LogoutResponse,
 } from '../types/auth'
 
 export const register = async (
@@ -23,13 +23,12 @@ export const login = async (data: LoginRequest): Promise<LoginResponse> => {
   return request.data
 }
 
-export const refresh = async (
-  data: RefreshRequest,
-): Promise<RefreshResponse> => {
-  const request = await apiClient.post<RefreshResponse>('/users/login/', data)
+export const refresh = async (): Promise<RefreshResponse> => {
+  const request = await apiClient.post<RefreshResponse>('/users/refresh/')
   return request.data
 }
 
-export const logout = async (): Promise<void> => {
-  await apiClient.post('/users/logout/')
+export const logout = async (): Promise<LogoutResponse> => {
+  const request = await apiClient.post<LogoutResponse>('/users/logout/')
+  return request.data
 }

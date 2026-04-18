@@ -23,12 +23,13 @@ export interface RegisterResponse {
   }
 }
 
-export interface RefreshRequest {
-  refresh: string
-}
-
 export interface RefreshResponse {
-  access?: string
+  message?: string
   detail?: string
   code?: string
+}
+
+export interface LogoutResponse {
+  message?: string
+  detail?: string
 }

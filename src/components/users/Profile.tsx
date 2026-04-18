@@ -5,13 +5,14 @@ import { toast } from 'react-toastify'
 import Error from '../utils/Error'
 import { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
+import type { User, UpdateUserRequest } from '../../types/user'
 
 export default function Profile() {
   const {
     data: user,
     isLoading,
     isError,
-  } = useQuery({
+  } = useQuery<User, AxiosError<User>>({
     queryKey: ['profile'],
     queryFn: getProfile,
   })
@@ -55,13 +56,17 @@ export default function Profile() {
   }
 
   const queryClient = useQueryClient()
-  const mutation = useMutation({
+  const mutation = useMutation<
+    User,
+    AxiosError<Record<string, string[]>>,
+    UpdateUserRequest
+  >({
     mutationFn: updateProfile,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] })
       toast.success('Perfil actualizado')
     },
-    onError: (error: AxiosError<Record<string, string[]>>) => {
+    onError: (error) => {
       toast.error('Actualización de Perfil fallida')
       if (error.response?.data) {
         setErrors(error.response.data)

@@ -35,13 +35,17 @@ export default function RegisterForm() {
     })
   }
 
-  const mutation = useMutation({
+  const mutation = useMutation<
+    RegisterResponse,
+    AxiosError<RegisterResponse>,
+    RegisterRequest
+  >({
     mutationFn: register,
     onSuccess: () => {
       toast.success('Tu registro fue exitoso!')
       navigate('/login')
     },
-    onError: (error: AxiosError<RegisterResponse>) => {
+    onError: (error) => {
       if (error.response?.data?.errors) {
         setErrors(error.response?.data?.errors)
       }

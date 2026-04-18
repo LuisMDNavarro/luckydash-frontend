@@ -3,6 +3,8 @@ import { logout } from '../../api/auth'
 import Loader from '../utils/Loader'
 import { toast } from 'react-toastify'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import type { LogoutResponse } from '../../types/auth'
+import { AxiosError } from 'axios'
 
 export default function Navbar() {
   const location = useLocation()
@@ -11,15 +13,21 @@ export default function Navbar() {
   const isActive = (path: Paths) => location.pathname.startsWith(path)
 
   const queryClient = useQueryClient()
-  const mutation = useMutation({
+  const mutation = useMutation<
+    LogoutResponse,
+    AxiosError<LogoutResponse>,
+    void
+  >({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.clear()
       toast.success('Hasta pronto!')
       navigate('/login')
     },
-    onError: () => {
-      toast.error('Error al cerrar la sesión')
+    onError: (error) => {
+      if (error.response?.data?.detail) {
+        toast.error('Error al cerrar la sesión')
+      }
     },
   })
 

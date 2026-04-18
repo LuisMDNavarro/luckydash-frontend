@@ -4,4 +4,12 @@ export interface User {
   email: string
   first_name: string
   last_name: string
+  detail?: string
+}
+
+export interface UpdateUserRequest {
+  username?: string
+  email?: string
+  first_name?: string
+  last_name?: string
 }
