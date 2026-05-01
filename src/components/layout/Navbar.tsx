@@ -40,26 +40,26 @@ export default function Navbar() {
       {mutation.isPending && <Loader />}
       <div className="navbar-container">
         <div className="navbar">
-          <div className={`btn ${isActive('/main') ? 'active' : ''}`}>
-            <Link to="/main">
+          <Link to="/main">
+            <div className={`btn ${isActive('/main') ? 'active' : ''}`}>
               <span className="prime--home"></span>
-            </Link>
-          </div>
-          <div className={`btn ${isActive('/wallet') ? 'active' : ''}`}>
-            <Link to="/wallet/accounts/list">
+            </div>
+          </Link>
+          <Link to="/wallet/accounts/list">
+            <div className={`btn ${isActive('/wallet') ? 'active' : ''}`}>
               <span className="fluent--wallet-credit-card-20-regular"></span>
-            </Link>
-          </div>
-          <div className={`btn ${isActive('/users') ? 'active' : ''}`}>
-            <Link to="/users/profile/view">
+            </div>
+          </Link>
+          <Link to="/users/profile/view">
+            <div className={`btn ${isActive('/users') ? 'active' : ''}`}>
               <span className="iconoir--profile-circle"></span>
-            </Link>
-          </div>
-          <div className="btn">
-            <button className="logout-btn" onClick={handleLogout}>
+            </div>
+          </Link>
+          <button className="logout-btn" onClick={handleLogout}>
+            <div className="btn">
               <span className="material-symbols--logout-rounded"></span>
-            </button>
-          </div>
+            </div>
+          </button>
           <svg
             className="outline"
             overflow="visible"
