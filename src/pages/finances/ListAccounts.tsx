@@ -1,6 +1,9 @@
 import Navbar from '../../components/layout/Navbar'
 import Sidebar from '../../components/layout/Sidebar'
 import '../../styles/Layout.css'
+import AccountsCards from '../../components/finances/AccountCards'
+import '../../styles/Finance.css'
+import '../../styles/Alert.css'
 
 export default function AccountsList() {
   return (
@@ -10,7 +13,7 @@ export default function AccountsList() {
         <div className="main-content">
           <Navbar />
           <div className="page-content">
-            <p>Wallet Content</p>
+            <AccountsCards />
           </div>
         </div>
       </div>

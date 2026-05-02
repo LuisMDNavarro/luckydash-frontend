@@ -34,6 +34,25 @@
   font-size: 16px;
 }
 
+.form-input-span input[type='color'] {
+  padding: 1px 5px;
+  width: 98%;
+}
+
+.form-input-span select {
+  border-radius: 5px;
+  padding: 10px 5px;
+  width: 98%;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #0d1117;
+  outline: 2px solid #707070;
+  color: #fff;
+  font-size: 16px;
+}
+
 .form-input-span input:focus {
   outline: 2px solid #fff;
 }
@@ -75,6 +94,7 @@
   padding: 0.5rem 1rem;
   border-radius: 5px;
   border: 2px solid #588fbc;
+  width: 100%;
 }
 
 .form-submitButton:hover {
@@ -106,4 +126,10 @@
   margin-top: 0px;
   width: 90%;
   position: relative;
+}
+
+.clean-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

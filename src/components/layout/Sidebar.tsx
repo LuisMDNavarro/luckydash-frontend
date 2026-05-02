@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 
 function WalletSidebar() {
@@ -57,18 +57,22 @@ function WalletSidebar() {
             <div
               className={`link-group-items ${openGroups.accounts && !collapsed ? 'open' : ''}`}
             >
-              <div
-                className={`link-item ${isActive('/wallet/accounts/create') ? 'active' : ''}`}
-              >
-                <span className="icon-park-outline--add"></span>
-                {!collapsed && <a>Agregar</a>}
-              </div>
-              <div
-                className={`link-item ${isActive('/wallet/accounts/list') ? 'active' : ''}`}
-              >
-                <span className="gg--list"></span>
-                {!collapsed && <a>Listar</a>}
-              </div>
+              <Link to="/wallet/accounts/create">
+                <div
+                  className={`link-item ${isActive('/wallet/accounts/create') ? 'active' : ''}`}
+                >
+                  <span className="icon-park-outline--add"></span>
+                  {!collapsed && 'Agregar'}
+                </div>
+              </Link>
+              <Link to="/wallet/accounts/list">
+                <div
+                  className={`link-item ${isActive('/wallet/accounts/list') ? 'active' : ''}`}
+                >
+                  <span className="gg--list"></span>
+                  {!collapsed && 'Listar'}
+                </div>
+              </Link>
             </div>
           </div>
           <div className="link-group">
@@ -89,18 +93,22 @@ function WalletSidebar() {
             <div
               className={`link-group-items ${openGroups.categories && !collapsed ? 'open' : ''}`}
             >
-              <div
-                className={`link-item ${isActive('/wallet/categories/create') ? 'active' : ''}`}
-              >
-                <span className="icon-park-outline--add"></span>
-                {!collapsed && <a>Agregar</a>}
-              </div>
-              <div
-                className={`link-item ${isActive('/wallet/categories/list') ? 'active' : ''}`}
-              >
-                <span className="gg--list"></span>
-                {!collapsed && <a>Listar</a>}
-              </div>
+              <Link to="/wallet/categories/create">
+                <div
+                  className={`link-item ${isActive('/wallet/categories/create') ? 'active' : ''}`}
+                >
+                  <span className="icon-park-outline--add"></span>
+                  {!collapsed && 'Agregar'}
+                </div>
+              </Link>
+              <Link to="/wallet/categories/list">
+                <div
+                  className={`link-item ${isActive('/wallet/categories/list') ? 'active' : ''}`}
+                >
+                  <span className="gg--list"></span>
+                  {!collapsed && 'Listar'}
+                </div>
+              </Link>
             </div>
           </div>
         </div>
@@ -164,12 +172,14 @@ function UsersSidebar() {
             <div
               className={`link-group-items ${openGroups.profile && !collapsed ? 'open' : ''}`}
             >
-              <div
-                className={`link-item ${isActive('/users/profile/view') ? 'active' : ''}`}
-              >
-                <span className="gg--list"></span>
-                {!collapsed && <a>Ver Perfil</a>}
-              </div>
+              <Link to="/users/profile/view">
+                <div
+                  className={`link-item ${isActive('/users/profile/view') ? 'active' : ''}`}
+                >
+                  <span className="gg--list"></span>
+                  {!collapsed && 'Ver Perfil'}
+                </div>
+              </Link>
             </div>
           </div>
         </div>
