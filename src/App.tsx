@@ -1,60 +1,19 @@
-import { Routes, Route } from 'react-router-dom'
-import Login from './pages/auth/Login'
-import Register from './pages/auth/Register'
-import Main from './pages/MainDashboard'
+import { Routes } from 'react-router-dom'
 import './styles/index.css'
 import { ToastContainer } from 'react-toastify'
-import ProtectedRoute from './components/auth/ProtectedRoute'
-import PublicRoute from './components/auth/PublicRoute'
-import AccountsList from './pages/finances/Accounts'
-import ViewProfile from './pages/users/Profile'
-import RootRedirect from './components/auth/RootRedirect'
+import { appRoutes } from './routes/appRoutes'
+import { authRoutes } from './routes/authRoutes'
+import { userRoutes } from './routes/userRoutes'
+import { accountRoutes } from './routes/accountRoutes'
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<RootRedirect />} />
-        <Route
-          path="/login"
-          element={
-            <PublicRoute>
-              <Login />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <PublicRoute>
-              <Register />
-            </PublicRoute>
-          }
-        />
-        <Route
-          path="/main"
-          element={
-            <ProtectedRoute>
-              <Main />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/wallet/accounts/list"
-          element={
-            <ProtectedRoute>
-              <AccountsList />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/users/profile/view"
-          element={
-            <ProtectedRoute>
-              <ViewProfile />
-            </ProtectedRoute>
-          }
-        />
+        {appRoutes}
+        {authRoutes}
+        {accountRoutes}
+        {userRoutes}
       </Routes>
       <ToastContainer theme="colored" />
     </>
