@@ -1,6 +1,5 @@
 import Navbar from '../components/layout/Navbar'
 import '../styles/MainDashboard.css'
-import '../styles/Accounts.css'
 import '../styles/Layout.css'
 
 export default function Main() {

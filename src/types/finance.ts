@@ -26,3 +26,25 @@ export interface UpdateAccountRequest {
   uid: string
   account: Partial<Account>
 }
+
+export const EXPENSES_TYPE = 'expenses'
+export const INCOME_TYPE = 'income'
+export const CATEGORY_TYPES = [
+  { value: EXPENSES_TYPE, label: 'Gastos' },
+  { value: INCOME_TYPE, label: 'Ingresos' },
+] as const
+export type CategoryType = (typeof CATEGORY_TYPES)[number]['value']
+
+export interface Category {
+  uid?: string
+  name: string
+  color: string
+  type: CategoryType
+}
+
+export type GetCategoriesResponse = Category[]
+
+export interface UpdateCategoryRequest {
+  uid: string
+  category: Partial<Category>
+}
