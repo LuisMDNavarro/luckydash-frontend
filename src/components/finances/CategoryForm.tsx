@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { Category } from '../../types/finance'
-import { CATEGORY_TYPES, EXPENSES_TYPE } from '../../types/finance'
+import { CATEGORY_TYPES, EXPENSE_TYPE } from '../../types/finance'
 import { useEffect } from 'react'
 
 type CategoryFormProps = {
@@ -21,7 +21,7 @@ export default function CategoryForm({
   const [formData, setFormData] = useState<Category>({
     name: initialData?.name || '',
     color: initialData?.color || '',
-    type: initialData?.type || EXPENSES_TYPE,
+    type: initialData?.type || EXPENSE_TYPE,
   })
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function CategoryForm({
       setFormData({
         name: initialData.name ?? '',
         color: initialData.color ?? '',
-        type: initialData.type ?? EXPENSES_TYPE,
+        type: initialData.type ?? EXPENSE_TYPE,
       })
     }
   }, [initialData])

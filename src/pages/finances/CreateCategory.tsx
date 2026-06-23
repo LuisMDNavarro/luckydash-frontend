@@ -32,7 +32,6 @@ export default function CreateCategory() {
       }
     },
   })
-  console.log('cargado')
   return (
     <>
       <div className="page-container-main-layoud">
