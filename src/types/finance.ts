@@ -27,10 +27,10 @@ export interface UpdateAccountRequest {
   account: Partial<Account>
 }
 
-export const EXPENSES_TYPE = 'expenses'
+export const EXPENSE_TYPE = 'expense'
 export const INCOME_TYPE = 'income'
 export const CATEGORY_TYPES = [
-  { value: EXPENSES_TYPE, label: 'Gastos' },
+  { value: EXPENSE_TYPE, label: 'Gastos' },
   { value: INCOME_TYPE, label: 'Ingresos' },
 ] as const
 export type CategoryType = (typeof CATEGORY_TYPES)[number]['value']
@@ -47,4 +47,42 @@ export type GetCategoriesResponse = Category[]
 export interface UpdateCategoryRequest {
   uid: string
   category: Partial<Category>
+}
+
+export const INSTALLMENTS_TRANSACTION_TYPE = "installments_expense"
+export const TRANSFER_TYPE = 'transfer'
+export const SAVINGS_EXPENSE_TYPE = 'savings_expense'
+export const SAVINGS_INCOME_TYPE = 'savings_income'
+export const TRANSACTIONS_TYPES = [
+  {value: EXPENSE_TYPE, label: 'Gasto' },
+  {value: INSTALLMENTS_TRANSACTION_TYPE, label: 'Gasto a Cuotas'},
+  {value: INCOME_TYPE, label: 'Ingreso' },
+  {value: TRANSFER_TYPE, label: 'Transferencia' },
+  {value: SAVINGS_INCOME_TYPE, label: 'Ingreso de Ahorro' },
+  {value: SAVINGS_EXPENSE_TYPE, label: 'Gasto de Ahorro' },
+] as const
+export type TransactionType = (typeof TRANSACTIONS_TYPES)[number]['value']
+
+export interface Transaction {
+  uid?: string
+  ticket?: string
+  from_account: string
+  category: string
+  type: TransactionType
+  amount: string
+  description: string
+  purchase_date: string
+  to_account?: string
+  installments?: number | ''
+  installment_number?: number | ''
+  parent_transaction?: string
+  approval_date?: string
+  is_monthly: boolean
+}
+
+export type GetTransactionsResponse = Transaction[]
+
+export interface UpdateTransactionRequest {
+  uid: string
+  transaction: Partial<Transaction>
 }

@@ -8,10 +8,12 @@ function WalletSidebar() {
   const [openGroups, setOpenGroups] = useState({
     accounts: true,
     categories: true,
+    tickets: true,
+    transactions: true,
   })
 
   type GroupKey = keyof typeof openGroups
-  type WalletSections = 'accounts' | 'categories'
+  type WalletSections = 'accounts' | 'categories' | 'tickets' | 'transactions'
   type WalletActions = 'list' | 'create'
   type Paths = `/wallet/${WalletSections}/${WalletActions}`
   const isActive = (path: Paths) => location.pathname === path
@@ -104,6 +106,78 @@ function WalletSidebar() {
               <Link to="/wallet/categories/list">
                 <div
                   className={`link-item ${isActive('/wallet/categories/list') ? 'active' : ''}`}
+                >
+                  <span className="gg--list"></span>
+                  {!collapsed && 'Listar'}
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="link-group">
+            <div
+              className="link-group-title"
+              onClick={() => toggleGroup('tickets')}
+            >
+              <span className="tabler--receipt-filled sidebar-icon"></span>
+              {!collapsed && <span>Tickets</span>}
+              {!collapsed && (
+                <div className="expansion-arrow">
+                  <span
+                    className={`material-symbols--arrow-drop-down-rounded chevron-right ${openGroups.tickets ? 'open' : ''}`}
+                  ></span>
+                </div>
+              )}
+            </div>
+            <div
+              className={`link-group-items ${openGroups.tickets && !collapsed ? 'open' : ''}`}
+            >
+              <Link to="/wallet/tickets/create">
+                <div
+                  className={`link-item ${isActive('/wallet/tickets/create') ? 'active' : ''}`}
+                >
+                  <span className="icon-park-outline--add"></span>
+                  {!collapsed && 'Agregar'}
+                </div>
+              </Link>
+              <Link to="/wallet/tickets/list">
+                <div
+                  className={`link-item ${isActive('/wallet/tickets/list') ? 'active' : ''}`}
+                >
+                  <span className="gg--list"></span>
+                  {!collapsed && 'Listar'}
+                </div>
+              </Link>
+            </div>
+          </div>
+          <div className="link-group">
+            <div
+              className="link-group-title"
+              onClick={() => toggleGroup('transactions')}
+            >
+              <span className="hugeicons--transaction sidebar-icon"></span>
+              {!collapsed && <span>Transacciones</span>}
+              {!collapsed && (
+                <div className="expansion-arrow">
+                  <span
+                    className={`material-symbols--arrow-drop-down-rounded chevron-right ${openGroups.transactions ? 'open' : ''}`}
+                  ></span>
+                </div>
+              )}
+            </div>
+            <div
+              className={`link-group-items ${openGroups.transactions && !collapsed ? 'open' : ''}`}
+            >
+              <Link to="/wallet/transactions/create">
+                <div
+                  className={`link-item ${isActive('/wallet/transactions/create') ? 'active' : ''}`}
+                >
+                  <span className="icon-park-outline--add"></span>
+                  {!collapsed && 'Agregar'}
+                </div>
+              </Link>
+              <Link to="/wallet/transactions/list">
+                <div
+                  className={`link-item ${isActive('/wallet/transactions/list') ? 'active' : ''}`}
                 >
                   <span className="gg--list"></span>
                   {!collapsed && 'Listar'}

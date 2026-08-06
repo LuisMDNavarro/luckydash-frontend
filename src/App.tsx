@@ -6,6 +6,7 @@ import { authRoutes } from './routes/authRoutes'
 import { userRoutes } from './routes/userRoutes'
 import { accountRoutes } from './routes/accountRoutes'
 import { categoryRoutes } from './routes/categoryRoutes'
+import { transactionRoutes } from './routes/transactionRoutes'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {accountRoutes}
         {userRoutes}
         {categoryRoutes}
+        {transactionRoutes}
       </Routes>
       <ToastContainer theme="colored" />
     </>

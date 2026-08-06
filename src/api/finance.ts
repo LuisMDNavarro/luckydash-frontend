@@ -6,6 +6,9 @@ import type {
   Category,
   GetCategoriesResponse,
   UpdateCategoryRequest,
+  Transaction,
+  GetTransactionsResponse,
+  UpdateTransactionRequest,
 } from '../types/finance'
 
 export const createAccount = async (data: Account): Promise<Account> => {
@@ -68,4 +71,35 @@ export const updateCategory = async (
 
 export const deleteCategory = async (uid: string): Promise<void> => {
   await apiClient.delete(`/finances/categories/${uid}/`)
+}
+
+export const createTransaction = async (data: Transaction): Promise<Transaction> => {
+  const response = await apiClient.post<Transaction>('/finances/transactions/', data)
+  return response.data
+}
+
+export const getTransactions = async (): Promise<GetTransactionsResponse> => {
+  const response = await apiClient.get<GetTransactionsResponse>(
+    '/finances/transactions/',
+  )
+  return response.data
+}
+
+export const getTransaction = async (uid: string): Promise<Transaction> => {
+  const response = await apiClient.get<Transaction>(`/finances/transactions/${uid}`)
+  return response.data
+}
+
+export const updateTransaction = async (
+  data: UpdateTransactionRequest,
+): Promise<Transaction> => {
+  const response = await apiClient.patch<Transaction>(
+    `/finances/transactions/${data.uid}/`,
+    data.transaction,
+  )
+  return response.data
+}
+
+export const deleteTransaction = async (uid: string): Promise<void> => {
+  await apiClient.delete(`/finances/transactions/${uid}/`)
 }
