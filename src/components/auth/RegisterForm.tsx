@@ -119,7 +119,7 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.username && <p>{errors.username[0]}</p>}
+          {errors.username && <p>{errors.username}</p>}
         </div>
         <div className="auth-input-container">
           <input
@@ -134,7 +134,7 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.wallet && <p>{errors.wallet[0]}</p>}
+          {errors.wallet && <p>{errors.wallet}</p>}
         </div>
         <div className="auth-input-container">
           <input
@@ -148,7 +148,7 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.password && <p>{errors.password[0]}</p>}
+          {errors.password && <p>{errors.password}</p>}
         </div>
         <div className="auth-input-container">
           <input
@@ -162,7 +162,7 @@ export default function RegisterForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.confirm_password && <p>{errors.confirm_password[0]}</p>}
+          {errors.confirm_password && <p>{errors.confirm_password}</p>}
         </div>
         <div className="auth-formControl">
           <Link to="/login">

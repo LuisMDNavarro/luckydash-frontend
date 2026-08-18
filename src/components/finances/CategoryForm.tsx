@@ -111,7 +111,7 @@ export default function CategoryForm({
             />
           </span>
           <div className="form-errors">
-            {errors.name && <p>{errors.name[0]}</p>}
+            {errors.name && <p>{errors.name}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Color</label>
@@ -124,7 +124,7 @@ export default function CategoryForm({
             />
           </span>
           <div className="form-errors">
-            {errors.color && <p>{errors.color[0]}</p>}
+            {errors.color && <p>{errors.color}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Tipo</label>
@@ -137,7 +137,7 @@ export default function CategoryForm({
             </select>
           </span>
           <div className="form-errors">
-            {errors.type && <p>{errors.type[0]}</p>}
+            {errors.type && <p>{errors.type}</p>}
           </div>
           <div className="form-control">
             <button

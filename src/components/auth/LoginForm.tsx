@@ -90,7 +90,7 @@ export default function LoginForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.username && <p>{errors.username[0]}</p>}
+          {errors.username && <p>{errors.username}</p>}
         </div>
         <div className="auth-input-container">
           <input
@@ -104,7 +104,7 @@ export default function LoginForm() {
           <div className="auth-underline"></div>
         </div>
         <div className="auth-errors">
-          {errors.password && <p>{errors.password[0]}</p>}
+          {errors.password && <p>{errors.password}</p>}
         </div>
         <div className="auth-formControl">
           <button type="submit" className="auth-submitButton">

@@ -138,7 +138,7 @@ export default function Profile() {
             />
           </span>
           <div className="form-errors">
-            {errors.username && <p>{errors.username[0]}</p>}
+            {errors.username && <p>{errors.username}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Correo</label>
@@ -151,7 +151,7 @@ export default function Profile() {
             />
           </span>
           <div className="form-errors">
-            {errors.email && <p>{errors.email[0]}</p>}
+            {errors.email && <p>{errors.email}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Nombre</label>
@@ -164,7 +164,7 @@ export default function Profile() {
             />
           </span>
           <div className="form-errors">
-            {errors.first_name && <p>{errors.first_name[0]}</p>}
+            {errors.first_name && <p>{errors.first_name}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Apellidos</label>
@@ -177,7 +177,7 @@ export default function Profile() {
             />
           </span>
           <div className="form-errors">
-            {errors.last_name && <p>{errors.last_name[0]}</p>}
+            {errors.last_name && <p>{errors.last_name}</p>}
           </div>
           <div className="form-control">
             <button

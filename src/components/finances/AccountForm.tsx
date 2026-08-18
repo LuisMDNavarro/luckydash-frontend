@@ -204,7 +204,7 @@ export default function AccountForm({
             />
           </span>
           <div className="form-errors">
-            {errors.name && <p>{errors.name[0]}</p>}
+            {errors.name && <p>{errors.name}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Color</label>
@@ -217,7 +217,7 @@ export default function AccountForm({
             />
           </span>
           <div className="form-errors">
-            {errors.color && <p>{errors.color[0]}</p>}
+            {errors.color && <p>{errors.color}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Tipo</label>
@@ -230,7 +230,7 @@ export default function AccountForm({
             </select>
           </span>
           <div className="form-errors">
-            {errors.type && <p>{errors.type[0]}</p>}
+            {errors.type && <p>{errors.type}</p>}
           </div>
           {(formData.type === CASH_TYPE || formData.type == DEBIT_TYPE) && (
             <>
@@ -245,7 +245,7 @@ export default function AccountForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.savings && <p>{errors.savings[0]}</p>}
+                {errors.savings && <p>{errors.savings}</p>}
               </div>
               <span className="form-input-span">
                 <label className="form-label">Monto</label>
@@ -258,7 +258,7 @@ export default function AccountForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.amount && <p>{errors.amount[0]}</p>}
+                {errors.amount && <p>{errors.amount}</p>}
               </div>
             </>
           )}
@@ -275,7 +275,7 @@ export default function AccountForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.credit_limit && <p>{errors.credit_limit[0]}</p>}
+                {errors.credit_limit && <p>{errors.credit_limit}</p>}
               </div>
               <span className="form-input-span">
                 <label className="form-label">Día de corte</label>
@@ -289,7 +289,7 @@ export default function AccountForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.billing_date && <p>{errors.billing_date[0]}</p>}
+                {errors.billing_date && <p>{errors.billing_date}</p>}
               </div>
               <span className="form-input-span">
                 <label className="form-label">Día límite de pago</label>
@@ -303,7 +303,7 @@ export default function AccountForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.payment_deadline && <p>{errors.payment_deadline[0]}</p>}
+                {errors.payment_deadline && <p>{errors.payment_deadline}</p>}
               </div>
             </>
           )}

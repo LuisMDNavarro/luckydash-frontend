@@ -292,7 +292,7 @@ export default function TransactionForm({
                 </select>
               </span>
               <div className="form-errors">
-                {errors.from_account && <p>{errors.from_account[0]}</p>}
+                {errors.from_account && <p>{errors.from_account}</p>}
               </div>
           <span className="form-input-span">
             <label className="form-label">Tipo</label>
@@ -305,7 +305,7 @@ export default function TransactionForm({
             </select>
           </span>
           <div className="form-errors">
-            {errors.type && <p>{errors.type[0]}</p>}
+            {errors.type && <p>{errors.type}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Categoria</label>
@@ -316,7 +316,7 @@ export default function TransactionForm({
             </select>
           </span>
           <div className="form-errors">
-            {errors.category && <p>{errors.category[0]}</p>}
+            {errors.category && <p>{errors.category}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Monto</label>
@@ -329,7 +329,7 @@ export default function TransactionForm({
                 />
           </span>
           <div className="form-errors">
-            {errors.amount && <p>{errors.amount[0]}</p>}
+            {errors.amount && <p>{errors.amount}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Descripcion</label>
@@ -341,7 +341,7 @@ export default function TransactionForm({
                 />
           </span>
           <div className="form-errors">
-            {errors.description && <p>{errors.description[0]}</p>}
+            {errors.description && <p>{errors.description}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Fecha</label>
@@ -353,7 +353,7 @@ export default function TransactionForm({
                 />
           </span>
           <div className="form-errors">
-            {errors.purchase_date && <p>{errors.purchase_date[0]}</p>}
+            {errors.purchase_date && <p>{errors.purchase_date}</p>}
           </div>
           {(formData.type === TRANSFER_TYPE ) && (
             <>
@@ -366,7 +366,7 @@ export default function TransactionForm({
                 </select>
               </span>
               <div className="form-errors">
-                {errors.to_account && <p>{errors.to_account[0]}</p>}
+                {errors.to_account && <p>{errors.to_account}</p>}
               </div>
             </>
           )}
@@ -386,7 +386,7 @@ export default function TransactionForm({
                 />
               </span>
               <div className="form-errors">
-                {errors.installments && <p>{errors.installments[0]}</p>}
+                {errors.installments && <p>{errors.installments}</p>}
               </div>
               {(formData.installment_number) && (
                 <span className="form-input-span">
@@ -409,7 +409,7 @@ export default function TransactionForm({
                 />
           </span>
           <div className="form-errors">
-            {errors.approval_date && <p>{errors.approval_date[0]}</p>}
+            {errors.approval_date && <p>{errors.approval_date}</p>}
           </div>
           <span className="form-input-span">
             <label className="form-label">Es mensual?</label>
@@ -421,7 +421,7 @@ export default function TransactionForm({
               onChange={handleChange}
                 />
           <div className="form-errors">
-            {errors.is_monthly && <p>{errors.is_monthly[0]}</p>}
+            {errors.is_monthly && <p>{errors.is_monthly}</p>}
           </div>
           <div className="form-control">
             <button
