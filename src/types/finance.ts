@@ -16,6 +16,7 @@ export interface Account {
   savings: string
   amount: string
   credit_limit: string
+  credit_available?: string
   billing_date: number
   payment_deadline: number
 }
