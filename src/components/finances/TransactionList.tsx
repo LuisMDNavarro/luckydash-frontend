@@ -1,7 +1,14 @@
 import { useEffect } from 'react'
 import Loader from '../utils/Loader'
-import { getTransactions, deleteTransaction, getCategories } from '../../api/finance'
-import type { GetTransactionsResponse, GetCategoriesResponse } from '../../types/finance'
+import {
+  getTransactions,
+  deleteTransaction,
+  getCategories,
+} from '../../api/finance'
+import type {
+  GetTransactionsResponse,
+  GetCategoriesResponse,
+} from '../../types/finance'
 import { TRANSACTIONS_TYPES } from '../../types/finance'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
@@ -26,32 +33,32 @@ export default function TransactionList() {
     }
   }, [isError])
 
-  const {
-      data: categories,
-      isError: isErrorCategories,
-    } = useQuery<GetCategoriesResponse, AxiosError<{ detail: string }>>({
-      queryKey: ['categories'],
-      queryFn: getCategories,
-    })
-    useEffect(() => {
-      if (isErrorCategories) {
-        toast.error('Error al cargar las Categorias')
-      }
-    }, [isErrorCategories])
+  const { data: categories, isError: isErrorCategories } = useQuery<
+    GetCategoriesResponse,
+    AxiosError<{ detail: string }>
+  >({
+    queryKey: ['categories'],
+    queryFn: getCategories,
+  })
+  useEffect(() => {
+    if (isErrorCategories) {
+      toast.error('Error al cargar las Categorias')
+    }
+  }, [isErrorCategories])
 
-    const parsedTransactions = transactions?.map((transaction) => ({
-        ...transaction,
-        category_uid: transaction.category.split('-[')[0],
-        category_name: transaction.category.split('-[')[1].slice(0, -1),
-        account_uid: transaction.from_account.split('-[')[0],
-        account_name: transaction.from_account.split('-[')[1].slice(0, -1),
-    }))
+  const parsedTransactions = transactions?.map((transaction) => ({
+    ...transaction,
+    category_uid: transaction.category.split('-[')[0],
+    category_name: transaction.category.split('-[')[1].slice(0, -1),
+    account_uid: transaction.from_account.split('-[')[0],
+    account_name: transaction.from_account.split('-[')[1].slice(0, -1),
+  }))
 
-    const formatCurrency = (amount: string | number): string =>
-      new Intl.NumberFormat('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2,
-      }).format(Number(amount))
+  const formatCurrency = (amount: string | number): string =>
+    new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(Number(amount))
 
   const queryClient = useQueryClient()
   const mutation = useMutation<void, AxiosError, string>({
@@ -72,6 +79,7 @@ export default function TransactionList() {
 
     if (result.isConfirmed) {
       await mutation.mutateAsync(uid)
+      queryClient.invalidateQueries({ queryKey: ['accounts'] })
 
       SuccessDeleteAlert.fire({
         text: 'La transaccion ha sido eliminada',
@@ -100,15 +108,33 @@ export default function TransactionList() {
         </thead>
         <tbody>
           {parsedTransactions?.map((transaction, index) => (
-            <tr key={index} style={{ background: `${categories?.find((category) => category.uid === transaction.category_uid)?.color}99` }}>
-              <td>{transaction.description} {transaction.installments && <span>- {transaction.installment_number}/{transaction.installments}</span>}</td>
+            <tr
+              key={index}
+              style={{
+                background: `${categories?.find((category) => category.uid === transaction.category_uid)?.color}99`,
+              }}
+            >
+              <td>
+                {transaction.description}{' '}
+                {transaction.installments && (
+                  <span>
+                    - {transaction.installment_number}/
+                    {transaction.installments}
+                  </span>
+                )}
+              </td>
               <td>{transaction.account_name}</td>
               <td>{transaction.category_name}</td>
               <td>${formatCurrency(transaction.amount)}</td>
-              <td>{formatDate(transaction.approval_date ?? transaction.purchase_date)}</td>
               <td>
-                {TRANSACTIONS_TYPES.find((type) => type.value === transaction.type)
-                  ?.label ?? transaction.type}
+                {formatDate(
+                  transaction.approval_date ?? transaction.purchase_date,
+                )}
+              </td>
+              <td>
+                {TRANSACTIONS_TYPES.find(
+                  (type) => type.value === transaction.type,
+                )?.label ?? transaction.type}
               </td>
               <td className="edit-buttons">
                 <Link to={`/wallet/transactions/update/${transaction.uid}`}>

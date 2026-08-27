@@ -22,6 +22,7 @@ export default function CreateTransaction() {
     mutationFn: createTransaction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['accounts'] })
       toast.success('Transaccion creada')
       navigate('/wallet/transactions/list')
     },

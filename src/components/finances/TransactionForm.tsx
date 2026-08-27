@@ -1,10 +1,18 @@
 import React, { useState } from 'react'
 import type { Transaction } from '../../types/finance'
-import { TRANSACTIONS_TYPES, EXPENSE_TYPE, TRANSFER_TYPE, INSTALLMENTS_TRANSACTION_TYPE } from '../../types/finance'
+import {
+  TRANSACTIONS_TYPES,
+  EXPENSE_TYPE,
+  TRANSFER_TYPE,
+  INSTALLMENTS_TRANSACTION_TYPE,
+} from '../../types/finance'
 import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
-import type { GetAccountsResponse, GetCategoriesResponse } from '../../types/finance'
+import type {
+  GetAccountsResponse,
+  GetCategoriesResponse,
+} from '../../types/finance'
 import { getAccounts, getCategories } from '../../api/finance'
 import type { AxiosError } from 'axios'
 import { getToday } from '../utils/date'
@@ -24,7 +32,6 @@ export default function TransactionForm({
   submitLabel = 'Crear',
   backendErrors,
 }: TransactionFormProps) {
-
   const {
     data: accounts,
     isLoading: isLoadingAccounts,
@@ -53,7 +60,6 @@ export default function TransactionForm({
     }
   }, [isErrorCategories])
 
-
   const [formData, setFormData] = useState<Transaction>({
     ticket: initialData?.ticket || '',
     from_account: initialData?.from_account || accounts?.[0]?.uid || '',
@@ -71,17 +77,33 @@ export default function TransactionForm({
   })
 
   const availableCategories =
-  categories?.filter(
-    (category) =>
-      formData.type === TRANSFER_TYPE ||
-      formData.type.includes(category.type)
-  ) ?? []
+    categories?.filter(
+      (category) =>
+        formData.type === TRANSFER_TYPE ||
+        formData.type.includes(category.type),
+    ) ?? []
+
+  useEffect(() => {
+    if (!availableCategories.length) return
+
+    const exists = availableCategories.some(
+      (category) => category.uid === formData.category,
+    )
+
+    if (!exists) {
+      setFormData((prev) => ({
+        ...prev,
+        category: availableCategories[0].uid ?? '',
+      }))
+    }
+  }, [formData.type, categories])
 
   useEffect(() => {
     if (initialData) {
       const account_uid = initialData.from_account?.split('-[')[0]
       const category_uid = initialData.category?.split('-[')[0]
       const to_account_uid = initialData.to_account?.split('-[')[0]
+      console.log(category_uid)
       setFormData({
         ticket: initialData.ticket ?? '',
         from_account: account_uid ?? accounts?.[0]?.uid ?? '',
@@ -89,7 +111,8 @@ export default function TransactionForm({
         type: initialData.type ?? EXPENSE_TYPE,
         amount: initialData.amount ?? '0.00',
         description: initialData.description ?? '',
-        purchase_date: initialData.purchase_date ?? new Date().toISOString().split('T')[0],
+        purchase_date:
+          initialData.purchase_date ?? new Date().toISOString().split('T')[0],
         to_account: to_account_uid ?? accounts?.[0]?.uid ?? '',
         installments: initialData.installments ?? '',
         installment_number: initialData.installment_number ?? '',
@@ -99,21 +122,6 @@ export default function TransactionForm({
       })
     }
   }, [initialData])
-
-  useEffect(() => {
-  if (!availableCategories.length) return
-
-  const exists = availableCategories.some(
-    (category) => category.uid === formData.category
-  )
-
-  if (!exists) {
-    setFormData((prev) => ({
-      ...prev,
-      category: availableCategories[0].uid ?? ''
-    }))
-  }
-}, [formData.type, categories])
 
   const [errors, setErrors] = useState<Record<string, string[]>>({})
 
@@ -129,10 +137,9 @@ export default function TransactionForm({
     const { name, value } = e.target
 
     const fieldValue =
-    e.target instanceof HTMLInputElement &&
-    e.target.type === 'checkbox'
-      ? e.target.checked
-      : value
+      e.target instanceof HTMLInputElement && e.target.type === 'checkbox'
+        ? e.target.checked
+        : value
 
     setFormData((prev) => ({
       ...prev,
@@ -212,8 +219,11 @@ export default function TransactionForm({
       newErrors.description = ['Máximo 255 caracteres permitidos']
     }
 
-    if (formData.purchase_date.length > 0 && !dateRegex.test(formData.purchase_date)) {
-      newErrors.purchase_date = ["La fecha no es valida"]
+    if (
+      formData.purchase_date.length > 0 &&
+      !dateRegex.test(formData.purchase_date)
+    ) {
+      newErrors.purchase_date = ['La fecha no es valida']
     }
     if (formData.type === TRANSFER_TYPE) {
       if (!validAccounts?.includes(formData.to_account)) {
@@ -221,18 +231,29 @@ export default function TransactionForm({
       }
 
       if (formData.from_account === formData.to_account) {
-        newErrors.to_account = ['La cuenta destino debe ser diferente a la origen']
+        newErrors.to_account = [
+          'La cuenta destino debe ser diferente a la origen',
+        ]
       }
     }
 
-    if (formData.type === INSTALLMENTS_TRANSACTION_TYPE){
-      if (formData.installments &&(formData.installments < 2 || formData.installments > 12)){
-        newErrors.installments = ['Debe ser mayor o igual que 2 y menor o igual que 12 ']
+    if (formData.type === INSTALLMENTS_TRANSACTION_TYPE) {
+      if (
+        formData.installments &&
+        (formData.installments < 2 || formData.installments > 12)
+      ) {
+        newErrors.installments = [
+          'Debe ser mayor o igual que 2 y menor o igual que 12 ',
+        ]
       }
     }
 
-    if (formData.approval_date && formData.approval_date.length > 0 && !dateRegex.test(formData.approval_date)) {
-      newErrors.approval_date = ["La fecha no es valida"]
+    if (
+      formData.approval_date &&
+      formData.approval_date.length > 0 &&
+      !dateRegex.test(formData.approval_date)
+    ) {
+      newErrors.approval_date = ['La fecha no es valida']
     }
 
     if (formData.ticket === '') {
@@ -274,29 +295,38 @@ export default function TransactionForm({
           <div className="form-title">
             <h2>Transaccion</h2>
           </div>
-          {(formData.ticket) && (
+          {formData.ticket && (
             <span className="form-input-span">
               <label className="form-label">Ticket</label>
-              <input
-                value={formData.ticket}
-                readOnly
-              />
+              <input value={formData.ticket} readOnly />
             </span>
           )}
           <span className="form-input-span">
-                <label className="form-label">Cuenta origen</label>
-                <select name="from_account" value={formData.from_account} onChange={handleChange} disabled={isLoadingAccounts}>
-                  {accounts?.map((account, index) => (
-                    <option  key={index} value={account.uid}>{account.name}</option>
-                  ))}
-                </select>
-              </span>
-              <div className="form-errors">
-                {errors.from_account && <p>{errors.from_account}</p>}
-              </div>
+            <label className="form-label">Cuenta origen</label>
+            <select
+              name="from_account"
+              value={formData.from_account}
+              onChange={handleChange}
+              disabled={isLoadingAccounts || !!formData.ticket}
+            >
+              {accounts?.map((account, index) => (
+                <option key={index} value={account.uid}>
+                  {account.name}
+                </option>
+              ))}
+            </select>
+          </span>
+          <div className="form-errors">
+            {errors.from_account && <p>{errors.from_account}</p>}
+          </div>
           <span className="form-input-span">
             <label className="form-label">Tipo</label>
-            <select name="type" value={formData.type} onChange={handleChange}>
+            <select
+              name="type"
+              value={formData.type}
+              onChange={handleChange}
+              disabled={isLoadingAccounts || !!formData.ticket}
+            >
               {TRANSACTIONS_TYPES.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -309,10 +339,17 @@ export default function TransactionForm({
           </div>
           <span className="form-input-span">
             <label className="form-label">Categoria</label>
-            <select name="category" value={formData.category} onChange={handleChange} disabled={isLoadingCategories}>
-              {availableCategories.map((category, index) =>(
-                    <option  key={index} value={category.uid}>{category.name}</option>
-                  ))}
+            <select
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              disabled={isLoadingCategories}
+            >
+              {availableCategories.map((category, index) => (
+                <option key={index} value={category.uid}>
+                  {category.name}
+                </option>
+              ))}
             </select>
           </span>
           <div className="form-errors">
@@ -326,7 +363,7 @@ export default function TransactionForm({
               value={formData.amount}
               onChange={handleDecimalChange}
               onBlur={handleBlur}
-                />
+            />
           </span>
           <div className="form-errors">
             {errors.amount && <p>{errors.amount}</p>}
@@ -338,7 +375,7 @@ export default function TransactionForm({
               name="description"
               value={formData.description}
               onChange={handleChange}
-                />
+            />
           </span>
           <div className="form-errors">
             {errors.description && <p>{errors.description}</p>}
@@ -350,18 +387,26 @@ export default function TransactionForm({
               name="purchase_date"
               value={formData.purchase_date}
               onChange={handleChange}
-                />
+              disabled={isLoadingAccounts || !!formData.ticket}
+            />
           </span>
           <div className="form-errors">
             {errors.purchase_date && <p>{errors.purchase_date}</p>}
           </div>
-          {(formData.type === TRANSFER_TYPE ) && (
+          {formData.type === TRANSFER_TYPE && (
             <>
               <span className="form-input-span">
                 <label className="form-label">Cuenta destino</label>
-                <select name="to_account" value={formData.to_account} onChange={handleChange} disabled={isLoadingAccounts}>
+                <select
+                  name="to_account"
+                  value={formData.to_account}
+                  onChange={handleChange}
+                  disabled={isLoadingAccounts}
+                >
                   {accounts?.map((account, index) => (
-                    <option  key={index} value={account.uid}>{account.name}</option>
+                    <option key={index} value={account.uid}>
+                      {account.name}
+                    </option>
                   ))}
                 </select>
               </span>
@@ -371,9 +416,9 @@ export default function TransactionForm({
             </>
           )}
 
-          {(formData.type === INSTALLMENTS_TRANSACTION_TYPE ) && (
+          {formData.type === INSTALLMENTS_TRANSACTION_TYPE && (
             <>
-            <span className="form-input-span">
+              <span className="form-input-span">
                 <label className="form-label">Cuotas</label>
                 <input
                   type="number"
@@ -388,13 +433,10 @@ export default function TransactionForm({
               <div className="form-errors">
                 {errors.installments && <p>{errors.installments}</p>}
               </div>
-              {(formData.installment_number) && (
+              {formData.installment_number && (
                 <span className="form-input-span">
                   <label className="form-label">Numero de Cuota</label>
-                  <input
-                    value={formData.installment_number}
-                    readOnly
-                  />
+                  <input value={formData.installment_number} readOnly />
                 </span>
               )}
             </>
@@ -406,7 +448,8 @@ export default function TransactionForm({
               name="approval_date"
               value={formData.approval_date}
               onChange={handleChange}
-                />
+              disabled={isLoadingAccounts || !!formData.ticket}
+            />
           </span>
           <div className="form-errors">
             {errors.approval_date && <p>{errors.approval_date}</p>}
@@ -414,12 +457,12 @@ export default function TransactionForm({
           <span className="form-input-span">
             <label className="form-label">Es mensual?</label>
           </span>
-            <input
-              type="checkbox"
-              name="is_monthly"
-              checked={formData.is_monthly}
-              onChange={handleChange}
-                />
+          <input
+            type="checkbox"
+            name="is_monthly"
+            checked={formData.is_monthly}
+            onChange={handleChange}
+          />
           <div className="form-errors">
             {errors.is_monthly && <p>{errors.is_monthly}</p>}
           </div>

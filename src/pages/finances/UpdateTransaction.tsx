@@ -42,7 +42,11 @@ export default function UpdateTransaction() {
     mutationFn: updateTransaction,
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
-      queryClient.invalidateQueries({ queryKey: ['transaction', variables.uid] })
+      queryClient.invalidateQueries({
+        queryKey: ['transaction', variables.uid],
+      })
+      queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      queryClient.invalidateQueries({ queryKey: ['tickets'] })
       toast.success('Transaccion actualizada')
       navigate('/wallet/transactions/list')
     },
