@@ -132,3 +132,12 @@
   border-spacing: 0 10px;
   border-collapse: separate;
 }
+
+.ticket-table {
+  width: 90%;
+  text-align: center;
+  align-items: center;
+  border: none;
+  border-spacing: 0 10px;
+  border-collapse: separate;
+}

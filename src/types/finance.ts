@@ -50,17 +50,17 @@ export interface UpdateCategoryRequest {
   category: Partial<Category>
 }
 
-export const INSTALLMENTS_TRANSACTION_TYPE = "installments_expense"
+export const INSTALLMENTS_TRANSACTION_TYPE = 'installments_expense'
 export const TRANSFER_TYPE = 'transfer'
 export const SAVINGS_EXPENSE_TYPE = 'savings_expense'
 export const SAVINGS_INCOME_TYPE = 'savings_income'
 export const TRANSACTIONS_TYPES = [
-  {value: EXPENSE_TYPE, label: 'Gasto' },
-  {value: INSTALLMENTS_TRANSACTION_TYPE, label: 'Gasto a Cuotas'},
-  {value: INCOME_TYPE, label: 'Ingreso' },
-  {value: TRANSFER_TYPE, label: 'Transferencia' },
-  {value: SAVINGS_INCOME_TYPE, label: 'Ingreso de Ahorro' },
-  {value: SAVINGS_EXPENSE_TYPE, label: 'Gasto de Ahorro' },
+  { value: EXPENSE_TYPE, label: 'Gasto' },
+  { value: INSTALLMENTS_TRANSACTION_TYPE, label: 'Gasto a Cuotas' },
+  { value: INCOME_TYPE, label: 'Ingreso' },
+  { value: TRANSFER_TYPE, label: 'Transferencia' },
+  { value: SAVINGS_INCOME_TYPE, label: 'Ingreso de Ahorro' },
+  { value: SAVINGS_EXPENSE_TYPE, label: 'Gasto de Ahorro' },
 ] as const
 export type TransactionType = (typeof TRANSACTIONS_TYPES)[number]['value']
 
@@ -86,4 +86,27 @@ export type GetTransactionsResponse = Transaction[]
 export interface UpdateTransactionRequest {
   uid: string
   transaction: Partial<Transaction>
+}
+
+export interface SimpleTransaction {
+  category: string
+  amount: string
+  description: string
+}
+
+export interface Ticket {
+  uid?: string
+  account: string
+  total_amount?: string
+  description: string
+  purchase_date: string
+  approval_date?: string
+  transactions: SimpleTransaction[]
+}
+
+export type GetTicketsResponse = Ticket[]
+
+export interface UpdateTicketRequest {
+  uid: string
+  ticket: Partial<Ticket>
 }

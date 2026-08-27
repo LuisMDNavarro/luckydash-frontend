@@ -9,6 +9,9 @@ import type {
   Transaction,
   GetTransactionsResponse,
   UpdateTransactionRequest,
+  Ticket,
+  GetTicketsResponse,
+  UpdateTicketRequest,
 } from '../types/finance'
 
 export const createAccount = async (data: Account): Promise<Account> => {
@@ -73,8 +76,13 @@ export const deleteCategory = async (uid: string): Promise<void> => {
   await apiClient.delete(`/finances/categories/${uid}/`)
 }
 
-export const createTransaction = async (data: Transaction): Promise<Transaction> => {
-  const response = await apiClient.post<Transaction>('/finances/transactions/', data)
+export const createTransaction = async (
+  data: Transaction,
+): Promise<Transaction> => {
+  const response = await apiClient.post<Transaction>(
+    '/finances/transactions/',
+    data,
+  )
   return response.data
 }
 
@@ -86,7 +94,9 @@ export const getTransactions = async (): Promise<GetTransactionsResponse> => {
 }
 
 export const getTransaction = async (uid: string): Promise<Transaction> => {
-  const response = await apiClient.get<Transaction>(`/finances/transactions/${uid}`)
+  const response = await apiClient.get<Transaction>(
+    `/finances/transactions/${uid}`,
+  )
   return response.data
 }
 
@@ -102,4 +112,33 @@ export const updateTransaction = async (
 
 export const deleteTransaction = async (uid: string): Promise<void> => {
   await apiClient.delete(`/finances/transactions/${uid}/`)
+}
+
+export const createTicket = async (data: Ticket): Promise<Ticket> => {
+  const response = await apiClient.post<Ticket>('/finances/tickets/', data)
+  return response.data
+}
+
+export const getTickets = async (): Promise<GetTicketsResponse> => {
+  const response = await apiClient.get<GetTicketsResponse>('/finances/tickets/')
+  return response.data
+}
+
+export const getTicket = async (uid: string): Promise<Ticket> => {
+  const response = await apiClient.get<Ticket>(`/finances/tickets/${uid}`)
+  return response.data
+}
+
+export const updateTicket = async (
+  data: UpdateTicketRequest,
+): Promise<Ticket> => {
+  const response = await apiClient.patch<Ticket>(
+    `/finances/tickets/${data.uid}/`,
+    data.ticket,
+  )
+  return response.data
+}
+
+export const deleteTicket = async (uid: string): Promise<void> => {
+  await apiClient.delete(`/finances/tickets/${uid}/`)
 }

@@ -133,3 +133,23 @@
   border: none;
   cursor: pointer;
 }
+
+.icon-park-outline--add-white {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='%23000' stroke-linejoin='round' stroke-width='4'%3E%3Crect width='36' height='36' x='6' y='6' rx='3'/%3E%3Cpath stroke-linecap='round' d='M24 16v16m-8-8h16'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: #ffffff;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.simple-transaction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
