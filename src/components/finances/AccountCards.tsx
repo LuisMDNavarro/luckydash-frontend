@@ -106,7 +106,10 @@ export default function AccountsCards() {
                       )}
                       {account.type == CREDIT_TYPE && (
                         <>
-                          <p>Crédito: {account.credit_available}/{account.credit_limit}</p>
+                          <p>
+                            Crédito: {account.credit_available}/
+                            {account.credit_limit}
+                          </p>
                           <p>Fecha de corte: {account.billing_date}</p>
                           <p>
                             Fecha límite de pago: {account.payment_deadline}
