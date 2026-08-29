@@ -27,7 +27,7 @@ export const getAccounts = async (): Promise<GetAccountsResponse> => {
 }
 
 export const getAccount = async (uid: string): Promise<Account> => {
-  const response = await apiClient.get<Account>(`/finances/accounts/${uid}`)
+  const response = await apiClient.get<Account>(`/finances/accounts/${uid}/`)
   return response.data
 }
 
@@ -58,7 +58,7 @@ export const getCategories = async (): Promise<GetCategoriesResponse> => {
 }
 
 export const getCategory = async (uid: string): Promise<Category> => {
-  const response = await apiClient.get<Category>(`/finances/categories/${uid}`)
+  const response = await apiClient.get<Category>(`/finances/categories/${uid}/`)
   return response.data
 }
 
@@ -95,7 +95,7 @@ export const getTransactions = async (): Promise<GetTransactionsResponse> => {
 
 export const getTransaction = async (uid: string): Promise<Transaction> => {
   const response = await apiClient.get<Transaction>(
-    `/finances/transactions/${uid}`,
+    `/finances/transactions/${uid}/`,
   )
   return response.data
 }
@@ -125,7 +125,7 @@ export const getTickets = async (): Promise<GetTicketsResponse> => {
 }
 
 export const getTicket = async (uid: string): Promise<Ticket> => {
-  const response = await apiClient.get<Ticket>(`/finances/tickets/${uid}`)
+  const response = await apiClient.get<Ticket>(`/finances/tickets/${uid}/`)
   return response.data
 }
 
