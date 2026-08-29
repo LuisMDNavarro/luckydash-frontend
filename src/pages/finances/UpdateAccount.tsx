@@ -43,6 +43,7 @@ export default function UpdateAccount() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       queryClient.invalidateQueries({ queryKey: ['account', variables.uid] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       toast.success('Cuenta actualizada')
       navigate('/wallet/accounts/list')
     },

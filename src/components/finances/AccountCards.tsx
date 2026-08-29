@@ -61,6 +61,7 @@ export default function AccountsCards() {
 
     if (result.isConfirmed) {
       await mutation.mutateAsync(uid)
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
 
       SuccessDeleteAlert.fire({
         text: 'La cuenta ha sido eliminada',

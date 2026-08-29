@@ -22,6 +22,7 @@ export default function CreateAccount() {
     mutationFn: createAccount,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       toast.success('Cuenta creada')
       navigate('/wallet/accounts/list')
     },
