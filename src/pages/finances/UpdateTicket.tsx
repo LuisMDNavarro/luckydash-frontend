@@ -45,6 +45,7 @@ export default function UpdateTicket() {
       queryClient.invalidateQueries({ queryKey: ['ticket', variables.uid] })
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       toast.success('Ticket actualizado')
       navigate('/wallet/tickets/list')
     },

@@ -47,6 +47,7 @@ export default function UpdateTransaction() {
       })
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       queryClient.invalidateQueries({ queryKey: ['tickets'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       toast.success('Transaccion actualizada')
       navigate('/wallet/transactions/list')
     },

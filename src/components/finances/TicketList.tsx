@@ -74,6 +74,7 @@ export default function TicketList() {
       await mutation.mutateAsync(uid)
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
 
       SuccessDeleteAlert.fire({
         text: 'El ticket ha sido eliminado',

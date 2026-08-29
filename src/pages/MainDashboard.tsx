@@ -1,6 +1,7 @@
 import Navbar from '../components/layout/Navbar'
 import '../styles/MainDashboard.css'
 import '../styles/Layout.css'
+import Resume from '../components/dashboard/resume'
 
 export default function Main() {
   return (
@@ -9,7 +10,7 @@ export default function Main() {
         <div className="main-content">
           <Navbar />
           <div className="page-content">
-            <p>Dashboard</p>
+            <Resume />
           </div>
         </div>
       </div>

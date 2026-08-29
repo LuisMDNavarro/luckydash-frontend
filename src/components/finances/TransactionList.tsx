@@ -80,6 +80,8 @@ export default function TransactionList() {
     if (result.isConfirmed) {
       await mutation.mutateAsync(uid)
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
+      queryClient.invalidateQueries({ queryKey: ['tickets'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
 
       SuccessDeleteAlert.fire({
         text: 'La transaccion ha sido eliminada',

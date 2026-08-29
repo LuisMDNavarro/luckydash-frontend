@@ -24,6 +24,7 @@ export default function CreateTicket() {
       queryClient.invalidateQueries({ queryKey: ['tickets'] })
       queryClient.invalidateQueries({ queryKey: ['accounts'] })
       queryClient.invalidateQueries({ queryKey: ['transactions'] })
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] })
       toast.success('Ticket creado')
       navigate('/wallet/tickets/list')
     },

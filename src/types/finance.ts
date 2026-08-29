@@ -110,3 +110,16 @@ export interface UpdateTicketRequest {
   uid: string
   ticket: Partial<Ticket>
 }
+
+export type GetDashboardResponse = {
+  accounts: Account[]
+  available: string
+  savings: string
+  incomes: string
+  expenses: string
+  average: string
+  incomes_day: string
+  expenses_day: string
+  difference: string
+  transactions: Transaction[]
+}
