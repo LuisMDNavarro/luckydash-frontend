@@ -122,4 +122,5 @@ export type GetDashboardResponse = {
   expenses_day: string
   difference: string
   transactions: Transaction[]
+  date?: string
 }

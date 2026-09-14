@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Loader from '../utils/Loader'
 import { CASH_TYPE, DEBIT_TYPE, CREDIT_TYPE } from '../../types/finance'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'react-toastify'
 import Error from '../utils/Error'
 import type { AxiosError } from 'axios'
@@ -14,10 +14,14 @@ import type {
 } from '../../types/finance'
 import { formatDate } from '../utils/date'
 import { TRANSACTIONS_TYPES } from '../../types/finance'
+import { getToday } from '../utils/date'
 
 export default function Resume() {
-  const [date] = useState(new Date().toISOString().split('T')[0])
+  const [date, setDate] = useState(getToday)
+  const [filterDate, setFilterDate] = useState(getToday)
+  const [isSearching, setIsSearching] = useState(false)
   const [year, month] = date.split('-')
+  const queryClient = useQueryClient()
   const {
     data: dashboard,
     isLoading,
@@ -31,6 +35,12 @@ export default function Resume() {
       toast.error('Error al cargar las informacion')
     }
   }, [isError])
+
+  useEffect(() => {
+    if (dashboard?.date) {
+      setDate(dashboard.date)
+    }
+  }, [dashboard?.date])
 
   const { data: categories, isError: isErrorCategories } = useQuery<
     GetCategoriesResponse,
@@ -59,10 +69,25 @@ export default function Resume() {
       maximumFractionDigits: 2,
     }).format(Number(amount))
 
+  const handleSearch = async () => {
+    setIsSearching(true)
+    try {
+      const data = await getDashboard(filterDate)
+      queryClient.setQueryData(['dashboard'], {
+        ...data,
+        date: filterDate,
+      })
+      setDate(filterDate)
+    } finally {
+      setIsSearching(false)
+    }
+  }
+
   if (isLoading) return <Loader />
   if (isError) return <Error message="No se pudo obtener la información" />
   return (
     <>
+      {isLoading || isSearching ? <Loader /> : null}
       <div className="dashboard">
         <div className="dashboard-item item-1">
           <div className="card-container">
@@ -102,6 +127,23 @@ export default function Resume() {
               ))}
             </div>
           </div>
+        </div>
+        <div className="dashboard-item item-date">
+          <span className="form-input-span input-span-date">
+            <input
+              type="date"
+              name="filter_date"
+              value={filterDate}
+              onChange={(e) => setFilterDate(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="search-button"
+              onClick={handleSearch}
+            >
+              <span className="ant-design--search-outlined"></span>
+            </button>
+          </span>
         </div>
         <div className="dashboard-item item-2">
           <p>Dinero Disponible: {dashboard?.available}</p>
