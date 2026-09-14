@@ -42,6 +42,12 @@ export default function AccountsCards() {
     )
   }
 
+  const formatCurrency = (amount: string | number): string =>
+    new Intl.NumberFormat('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    }).format(Number(amount))
+
   const queryClient = useQueryClient()
   const mutation = useMutation<void, AxiosError, string>({
     mutationFn: deleteAccount,
@@ -101,15 +107,16 @@ export default function AccountsCards() {
                       {(account.type == CASH_TYPE ||
                         account.type == DEBIT_TYPE) && (
                         <>
-                          <p>Ahorros: {account.savings}</p>
-                          <p>Monto: {account.amount}</p>
+                          <p>Ahorros: {formatCurrency(account.savings)}</p>
+                          <p>Monto: {formatCurrency(account.amount)}</p>
                         </>
                       )}
                       {account.type == CREDIT_TYPE && (
                         <>
                           <p>
-                            Crédito: {account.credit_available}/
-                            {account.credit_limit}
+                            Crédito:{' '}
+                            {formatCurrency(account.credit_available ?? 0)}/
+                            {formatCurrency(account.credit_limit)}
                           </p>
                           <p>Fecha de corte: {account.billing_date}</p>
                           <p>

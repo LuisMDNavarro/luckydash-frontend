@@ -105,15 +105,16 @@ export default function Resume() {
                       {(account.type == CASH_TYPE ||
                         account.type == DEBIT_TYPE) && (
                         <>
-                          <p>Ahorros: {account.savings}</p>
-                          <p>Monto: {account.amount}</p>
+                          <p>Ahorros: {formatCurrency(account.savings)}</p>
+                          <p>Monto: {formatCurrency(account.amount)}</p>
                         </>
                       )}
                       {account.type == CREDIT_TYPE && (
                         <>
                           <p>
-                            Crédito: {account.credit_available}/
-                            {account.credit_limit}
+                            Crédito:{' '}
+                            {formatCurrency(account.credit_available ?? 0)}/
+                            {formatCurrency(account.credit_limit)}
                           </p>
                           <p>Fecha de corte: {account.billing_date}</p>
                           <p>
@@ -146,25 +147,28 @@ export default function Resume() {
           </span>
         </div>
         <div className="dashboard-item item-2">
-          <p>Dinero Disponible: {dashboard?.available}</p>
-          <p>Ahorro Actual: {dashboard?.savings}</p>
+          <p>Dinero Disponible: {formatCurrency(dashboard?.available ?? 0)}</p>
+          <p>Ahorro Actual: {formatCurrency(dashboard?.savings ?? 0)}</p>
         </div>
         <div className="dashboard-item item-3">
           <h3>
             Resumen de Transacciones {month}/{year}
           </h3>
           <div>
-            <p>Ingresos Totales: {dashboard?.incomes}</p>
-            <p>Gastos Totales: {dashboard?.expenses}</p>
-            <p>Promedios de gastos al dia: {dashboard?.average}</p>
+            <p>Ingresos Totales: {formatCurrency(dashboard?.incomes ?? 0)}</p>
+            <p>Gastos Totales: {formatCurrency(dashboard?.expenses ?? 0)}</p>
+            <p>
+              Promedios de gastos al dia:{' '}
+              {formatCurrency(dashboard?.average ?? 0)}
+            </p>
           </div>
         </div>
         <div className="dashboard-item item-4">
           <h3>Transacciones del: {formatDate(date)}</h3>
           <div>
-            <p>Ingresos: {dashboard?.incomes_day}</p>
-            <p>Gastos: {dashboard?.expenses_day}</p>
-            <p>Diferencia: {dashboard?.difference}</p>
+            <p>Ingresos: {formatCurrency(dashboard?.incomes_day ?? 0)}</p>
+            <p>Gastos: {formatCurrency(dashboard?.expenses_day ?? 0)}</p>
+            <p>Diferencia: {formatCurrency(dashboard?.difference ?? 0)}</p>
           </div>
         </div>
         <div className="table-container">
