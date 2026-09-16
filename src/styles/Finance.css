@@ -141,3 +141,17 @@
   border-spacing: 0 10px;
   border-collapse: separate;
 }
+
+.transactions-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+table caption {
+  text-align: left;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 15px;
+}

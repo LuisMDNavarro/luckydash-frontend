@@ -86,9 +86,14 @@ export const createTransaction = async (
   return response.data
 }
 
-export const getTransactions = async (): Promise<GetTransactionsResponse> => {
+export const getTransactions = async (
+  date: string,
+  account: string,
+  category: string,
+): Promise<GetTransactionsResponse> => {
   const response = await apiClient.get<GetTransactionsResponse>(
     '/finances/transactions/',
+    { params: { date, account, category } },
   )
   return response.data
 }

@@ -33,6 +33,7 @@ export default function Navbar() {
 
   const handleLogout = async () => {
     mutation.mutate()
+    sessionStorage.clear()
   }
 
   return (

@@ -130,7 +130,7 @@ export default function Resume() {
           </div>
         </div>
         <div className="dashboard-item item-date">
-          <span className="form-input-span input-span-date">
+          <span className="form-input-span input-span-filters">
             <input
               type="date"
               name="filter_date"
