@@ -41,26 +41,31 @@ export default function Navbar() {
       {mutation.isPending && <Loader />}
       <div className="navbar-container">
         <div className="navbar">
-          <Link to="/main">
+          <Link className='btn' to="/main">
             <div className={`btn ${isActive('/main') ? 'active' : ''}`}>
               <span className="prime--home"></span>
             </div>
           </Link>
-          <Link to="/wallet/accounts/list">
+          <Link className='btn' to="/wallet/accounts/list">
             <div className={`btn ${isActive('/wallet') ? 'active' : ''}`}>
               <span className="fluent--wallet-credit-card-20-regular"></span>
             </div>
           </Link>
-          <Link to="/users/profile/view">
+          <Link className='btn' to="/users/profile/view">
             <div className={`btn ${isActive('/users') ? 'active' : ''}`}>
               <span className="iconoir--profile-circle"></span>
             </div>
           </Link>
-          <button className="logout-btn" onClick={handleLogout}>
+          <button className="btn logout-btn" onClick={handleLogout}>
             <div className="btn">
               <span className="material-symbols--logout-rounded"></span>
             </div>
           </button>
+          <a className='btn' href="https://luismdnavarro.github.io/my_first_game/" target="_blank">
+            <div className="btn">
+              <span className="codicon--game"></span>
+            </div>
+          </a>
           <svg
             className="outline"
             overflow="visible"
