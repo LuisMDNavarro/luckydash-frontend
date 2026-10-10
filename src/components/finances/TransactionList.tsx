@@ -34,14 +34,32 @@ export default function TransactionList() {
   const [date, setDate] = useState(
     () => sessionStorage.getItem('transactionsDate') ?? getToday(),
   )
+  const [category, setCategory] = useState(
+    () => sessionStorage.getItem('transactionsCategory') ?? '',
+  )
+  const [account, setAccount] = useState(
+    () => sessionStorage.getItem('transactionsAccount') ?? '',
+  )
+  const [appliedFilters, setAppliedFilters] = useState({
+    date,
+    category,
+    account,
+  })
+  const [page, setPage] = useState(1)
   const [isSearching, setIsSearching] = useState(false)
   const {
     data: transactions,
     isLoading,
     isError,
   } = useQuery<GetTransactionsResponse, AxiosError<{ detail: string }>>({
-    queryKey: ['transactions'],
-    queryFn: () => getTransactions(date, account, category),
+    queryKey: ['transactions', appliedFilters, page],
+    queryFn: () =>
+      getTransactions(
+        appliedFilters.date,
+        appliedFilters.account,
+        appliedFilters.category,
+        page,
+      ),
   })
   useEffect(() => {
     if (isError) {
@@ -63,7 +81,7 @@ export default function TransactionList() {
     }
   }, [isErrorCategories])
 
-  const parsedTransactions = transactions?.map((transaction) => ({
+  const parsedTransactions = transactions?.results.map((transaction) => ({
     ...transaction,
     category_uid: transaction.category.split('-[')[0],
     category_name: transaction.category.split('-[')[1].slice(0, -1),
@@ -84,13 +102,6 @@ export default function TransactionList() {
       toast.error('Error al cargar las Cuentas')
     }
   }, [isErrorAccounts])
-
-  const [category, setCategory] = useState(
-    () => sessionStorage.getItem('transactionsCategory') ?? '',
-  )
-  const [account, setAccount] = useState(
-    () => sessionStorage.getItem('transactionsAccount') ?? '',
-  )
 
   const formatCurrency = (amount: string | number): string =>
     new Intl.NumberFormat('en-US', {
@@ -130,11 +141,11 @@ export default function TransactionList() {
   const handleSearch = async () => {
     setIsSearching(true)
     try {
-      const data = await getTransactions(date, account, category)
-      queryClient.setQueryData(['transactions'], data)
+      setAppliedFilters({ date, account, category })
       sessionStorage.setItem('transactionsDate', date)
       sessionStorage.setItem('transactionsAccount', account)
       sessionStorage.setItem('transactionsCategory', category)
+      setPage(1)
     } finally {
       setIsSearching(false)
     }
@@ -191,6 +202,9 @@ export default function TransactionList() {
               <span className="ant-design--search-outlined"></span>
             </button>
           </span>
+          <p>
+            <strong>Total de transacciones:</strong> {transactions?.count ?? 0}
+          </p>
         </div>
         <table className="transaction-table">
           <caption>Ingresos</caption>
@@ -389,6 +403,23 @@ export default function TransactionList() {
               ))}
           </tbody>
         </table>
+        <div className="pagination-controls">
+          <button
+            className="page-btn"
+            onClick={() => setPage((current) => current - 1)}
+            disabled={!transactions?.previous || isLoading}
+          >
+            <span className="wordpress--query-pagination-previous"></span>
+          </button>
+          <span>Página {page}</span>
+          <button
+            className="page-btn"
+            onClick={() => setPage((current) => current + 1)}
+            disabled={!transactions?.next || isLoading}
+          >
+            <span className="wordpress--query-pagination-next"></span>
+          </button>
+        </div>
       </div>
     </>
   )

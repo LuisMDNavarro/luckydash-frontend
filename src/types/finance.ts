@@ -1,3 +1,10 @@
+export interface PaginatedResponse<T> {
+  count: number
+  next: string | null
+  previous: string | null
+  results: T[]
+}
+
 export const CASH_TYPE = 'cash'
 export const DEBIT_TYPE = 'debit'
 export const CREDIT_TYPE = 'credit'
@@ -81,7 +88,7 @@ export interface Transaction {
   is_monthly: boolean
 }
 
-export type GetTransactionsResponse = Transaction[]
+export type GetTransactionsResponse = PaginatedResponse<Transaction>
 
 export interface UpdateTransactionRequest {
   uid: string
@@ -104,7 +111,7 @@ export interface Ticket {
   transactions: SimpleTransaction[]
 }
 
-export type GetTicketsResponse = Ticket[]
+export type GetTicketsResponse = PaginatedResponse<Ticket>
 
 export interface UpdateTicketRequest {
   uid: string

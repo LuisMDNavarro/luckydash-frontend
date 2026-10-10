@@ -12,15 +12,17 @@ import type { AxiosError } from 'axios'
 import { Link } from 'react-router-dom'
 import { DeleteAlert, SuccessDeleteAlert } from '../utils/Alerts'
 import { formatDate } from '../utils/date'
+import { useState } from 'react'
 
 export default function TicketList() {
+  const [page, setPage] = useState(1)
   const {
     data: tickets,
     isLoading,
     isError,
   } = useQuery<GetTicketsResponse, AxiosError<{ detail: string }>>({
-    queryKey: ['tickets'],
-    queryFn: getTickets,
+    queryKey: ['tickets', page],
+    queryFn: () => getTickets(page),
   })
   useEffect(() => {
     if (isError) {
@@ -41,7 +43,7 @@ export default function TicketList() {
     }
   }, [isErrorAccounts])
 
-  const parsedTickets = tickets?.map((ticket) => ({
+  const parsedTickets = tickets?.results.map((ticket) => ({
     ...ticket,
     account_uid: ticket.account.split('-[')[0],
     account_name: ticket.account.split('-[')[1].slice(0, -1),
@@ -87,48 +89,72 @@ export default function TicketList() {
     return <Error message="No se pudo obtener la información de los Tickets" />
   return (
     <>
-      <table className="ticket-table">
-        <thead>
-          <tr>
-            <th>Descripcion</th>
-            <th>Cuenta</th>
-            <th>Monto</th>
-            <th>Fecha</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {parsedTickets?.map((ticket, index) => (
-            <tr
-              key={index}
-              style={{
-                background: `${accounts?.find((account) => account.uid === ticket.account_uid)?.color}99`,
-              }}
-            >
-              <td>{ticket.description}</td>
-              <td>{ticket.account_name}</td>
-              <td>${formatCurrency(ticket.total_amount ?? 0)}</td>
-              <td>
-                {formatDate(ticket.approval_date ?? ticket.purchase_date)}
-              </td>
-              <td className="edit-buttons">
-                <Link to={`/wallet/tickets/update/${ticket.uid}`}>
-                  <span className="lucide--edit"></span>
-                </Link>
-                <button
-                  className="clean-button"
-                  onClick={() => {
-                    if (!ticket.uid) return
-                    handleDelete(ticket.uid)
-                  }}
-                >
-                  <span className="icon-park-twotone--delete"></span>
-                </button>
-              </td>
+      <div className="transactions-container">
+        <div>
+          <p>
+            <strong>Total de tickets:</strong> {tickets?.count ?? 0}
+          </p>
+        </div>
+        <table className="ticket-table">
+          <thead>
+            <tr>
+              <th>Descripcion</th>
+              <th>Cuenta</th>
+              <th>Monto</th>
+              <th>Fecha</th>
+              <th>Acciones</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {parsedTickets?.map((ticket, index) => (
+              <tr
+                key={index}
+                style={{
+                  background: `${accounts?.find((account) => account.uid === ticket.account_uid)?.color}99`,
+                }}
+              >
+                <td>{ticket.description}</td>
+                <td>{ticket.account_name}</td>
+                <td>${formatCurrency(ticket.total_amount ?? 0)}</td>
+                <td>
+                  {formatDate(ticket.approval_date ?? ticket.purchase_date)}
+                </td>
+                <td className="edit-buttons">
+                  <Link to={`/wallet/tickets/update/${ticket.uid}`}>
+                    <span className="lucide--edit"></span>
+                  </Link>
+                  <button
+                    className="clean-button"
+                    onClick={() => {
+                      if (!ticket.uid) return
+                      handleDelete(ticket.uid)
+                    }}
+                  >
+                    <span className="icon-park-twotone--delete"></span>
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="pagination-controls">
+          <button
+            className="page-btn"
+            onClick={() => setPage((current) => current - 1)}
+            disabled={!tickets?.previous || isLoading}
+          >
+            <span className="wordpress--query-pagination-previous"></span>
+          </button>
+          <span>Página {page}</span>
+          <button
+            className="page-btn"
+            onClick={() => setPage((current) => current + 1)}
+            disabled={!tickets?.next || isLoading}
+          >
+            <span className="wordpress--query-pagination-next"></span>
+          </button>
+        </div>
+      </div>
     </>
   )
 }

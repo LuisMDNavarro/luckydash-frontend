@@ -90,10 +90,11 @@ export const getTransactions = async (
   date: string,
   account: string,
   category: string,
+  page: number,
 ): Promise<GetTransactionsResponse> => {
   const response = await apiClient.get<GetTransactionsResponse>(
     '/finances/transactions/',
-    { params: { date, account, category } },
+    { params: { date, account, category, page } },
   )
   return response.data
 }
@@ -124,8 +125,11 @@ export const createTicket = async (data: Ticket): Promise<Ticket> => {
   return response.data
 }
 
-export const getTickets = async (): Promise<GetTicketsResponse> => {
-  const response = await apiClient.get<GetTicketsResponse>('/finances/tickets/')
+export const getTickets = async (page: number): Promise<GetTicketsResponse> => {
+  const response = await apiClient.get<GetTicketsResponse>(
+    '/finances/tickets/',
+    { params: { page } },
+  )
   return response.data
 }
 

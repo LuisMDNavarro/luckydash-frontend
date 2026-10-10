@@ -59,7 +59,7 @@
 
 .btn {
   flex: 1;
-  text-align: center; 
+  text-align: center;
   color: #fff;
   cursor: pointer;
   transition: 0.1s;
@@ -189,7 +189,6 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
 }
-
 
 /* ----- Sidebar ----- */
 .sidebar-container {
@@ -439,4 +438,45 @@ a {
   cursor: pointer;
   border-radius: 5px;
   background-color: #588fbc;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordpress--query-pagination-next {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M7 12h2m2 0h2m3-2.5l2 2.5l-2 2.5'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.wordpress--query-pagination-previous {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M11 12h2m2 0h2m-9 2.5L6 12l2-2.5'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+
+.page-btn {
+  color: currentColor;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
 }
