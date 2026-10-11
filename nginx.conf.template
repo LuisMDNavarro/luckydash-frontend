@@ -2,6 +2,26 @@ server {
     listen 80;
     server_name _;
 
+    # Let's Encrypt certificate validation
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+        default_type text/plain;
+        try_files $uri =404;
+    }
+
+    # Redirigir el resto del tráfico a HTTPS
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name _;
+
+    ssl_certificate /etc/letsencrypt/live/98.87.89.82-prod/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/98.87.89.82-prod/privkey.pem;
+
     root /usr/share/nginx/html;
     index index.html;
 
