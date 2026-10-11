@@ -46,3 +46,9 @@
 .dashboard-table td {
   padding: 5px;
 }
+
+@media (max-width: 480px) {
+  .item-date {
+    width: 40%;
+  }
+}

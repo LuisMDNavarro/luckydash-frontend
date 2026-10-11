@@ -15,8 +15,18 @@ import type {
 import { formatDate } from '../utils/date'
 import { TRANSACTIONS_TYPES } from '../../types/finance'
 import { getToday } from '../utils/date'
+import useWindowWidth from '../utils/WindowWith'
+
+function chunkArray<T>(array: T[], size: number): T[][] {
+  const result = []
+  for (let i = 0; i < array.length; i += size) {
+    result.push(array.slice(i, i + size))
+  }
+  return result
+}
 
 export default function Resume() {
+  const width = useWindowWidth()
   const [date, setDate] = useState(getToday)
   const [filterDate, setFilterDate] = useState(getToday)
   const [isSearching, setIsSearching] = useState(false)
@@ -55,6 +65,9 @@ export default function Resume() {
     }
   }, [isErrorCategories])
 
+  const cardsNumber = width <= 480 ? 2 : width <= 768 ? 3 : 4
+  const groupedAccounts = chunkArray(dashboard?.accounts ?? [], cardsNumber)
+
   const parsedTransactions = dashboard?.transactions.map((transaction) => ({
     ...transaction,
     category_uid: transaction.category.split('-[')[0],
@@ -91,42 +104,46 @@ export default function Resume() {
       <div className="dashboard">
         <div className="dashboard-item item-1">
           <div className="card-container">
-            <div className="card-stack  expanded">
-              {dashboard?.accounts.map((account) => (
-                <React.Fragment key={account.uid}>
-                  <div
-                    className="glass box"
-                    style={{
-                      background: `linear-gradient(${account.color}, transparent)`,
-                    }}
-                  >
-                    <div>
-                      <strong>{account.name}</strong>
-                      {(account.type == CASH_TYPE ||
-                        account.type == DEBIT_TYPE) && (
-                        <>
-                          <p>Ahorros: {formatCurrency(account.savings)}</p>
-                          <p>Monto: {formatCurrency(account.amount)}</p>
-                        </>
-                      )}
-                      {account.type == CREDIT_TYPE && (
-                        <>
-                          <p>
-                            Crédito:{' '}
-                            {formatCurrency(account.credit_available ?? 0)}/
-                            {formatCurrency(account.credit_limit)}
-                          </p>
-                          <p>Fecha de corte: {account.billing_date}</p>
-                          <p>
-                            Fecha límite de pago: {account.payment_deadline}
-                          </p>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+            {groupedAccounts.map((group, groupIndex) => (
+              <React.Fragment key={groupIndex}>
+                <div className="card-stack  expanded">
+                  {group.map((account) => (
+                    <React.Fragment key={account.uid}>
+                      <div
+                        className="glass box"
+                        style={{
+                          background: `linear-gradient(${account.color}, transparent)`,
+                        }}
+                      >
+                        <div>
+                          <strong>{account.name}</strong>
+                          {(account.type == CASH_TYPE ||
+                            account.type == DEBIT_TYPE) && (
+                            <>
+                              <p>Ahorros: {formatCurrency(account.savings)}</p>
+                              <p>Monto: {formatCurrency(account.amount)}</p>
+                            </>
+                          )}
+                          {account.type == CREDIT_TYPE && (
+                            <>
+                              <p>
+                                Crédito:{' '}
+                                {formatCurrency(account.credit_available ?? 0)}/
+                                {formatCurrency(account.credit_limit)}
+                              </p>
+                              <p>Fecha de corte: {account.billing_date}</p>
+                              <p>
+                                Fecha límite de pago: {account.payment_deadline}
+                              </p>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </React.Fragment>
+                  ))}
+                </div>
+              </React.Fragment>
+            ))}
           </div>
         </div>
         <div className="dashboard-item item-date">

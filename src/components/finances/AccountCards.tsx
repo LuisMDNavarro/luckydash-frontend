@@ -10,6 +10,7 @@ import type { AxiosError } from 'axios'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { DeleteAlert, SuccessDeleteAlert } from '../utils/Alerts'
+import useWindowWidth from '../utils/WindowWith'
 
 function chunkArray<T>(array: T[], size: number): T[][] {
   const result = []
@@ -20,6 +21,7 @@ function chunkArray<T>(array: T[], size: number): T[][] {
 }
 
 export default function AccountsCards() {
+  const width = useWindowWidth()
   const {
     data: accounts,
     isLoading,
@@ -33,7 +35,8 @@ export default function AccountsCards() {
       toast.error('Error al cargar las Cuentas')
     }
   }, [isError])
-  const groupedAccounts = chunkArray(accounts ?? [], 4)
+  const cardsNumber = width <= 480 ? 2 : width <= 768 ? 3 : 4
+  const groupedAccounts = chunkArray(accounts ?? [], cardsNumber)
   const [expandedStacks, setExpandedStacks] = useState<number[]>([])
 
   const handleToggle = (index: number) => {

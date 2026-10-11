@@ -3,6 +3,8 @@
   background-color: #010409;
   color: #ffffff;
   display: flex;
+  width: 100%;
+  min-width: 0;
 }
 
 .main-content {
@@ -10,6 +12,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 0;
+  width: 100%;
 }
 
 .page-content {
@@ -17,27 +21,38 @@
   width: 100%;
   margin-top: 20px;
   justify-content: center;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 0 16px;
 }
 
 /* ----- Navar ----- */
 .navbar-container {
   margin-top: 1%;
   position: relative;
-  width: 400px;
+  width: min(400px, calc(100% - 24px));
   height: 60px;
+  max-width: 100%;
 }
 
 .outline {
+  width: 100%;
+  height: 100%;
   position: absolute;
   inset: 0;
   pointer-events: none;
+  max-width: 100%;
 }
 
 .rect {
+  width: 100%;
+  height: 100%;
+  stroke-width: 5px;
   stroke-dashoffset: 5;
   stroke-dasharray: 0 0 10 40 10 40;
   transition: 0.5s;
   stroke: #fff;
+  max-width: 100%;
 }
 
 .navbar:hover .outline .rect {
@@ -55,6 +70,8 @@
   justify-content: space-around;
   align-items: center;
   padding: 0.5em;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .btn {
@@ -63,6 +80,7 @@
   color: #fff;
   cursor: pointer;
   transition: 0.1s;
+  min-width: 0;
 }
 
 .btn div {
@@ -174,6 +192,7 @@ a {
   background-color: transparent;
   cursor: pointer;
   border: none;
+  padding: 0;
 }
 
 .codicon--game {
@@ -198,6 +217,10 @@ a {
   transition: width 0.3s ease;
   overflow: hidden;
   position: relative;
+  flex-shrink: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  z-index: 500;
 }
 
 .sidebar-container.collapsed {
@@ -227,6 +250,7 @@ a {
 
 .sidebar {
   padding: 70px 20px;
+  box-sizing: border-box;
 }
 
 .link-group {
@@ -279,6 +303,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .ic--outline-category {
@@ -294,6 +319,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .tabler--receipt-filled {
@@ -309,6 +335,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .hugeicons--transaction {
@@ -324,6 +351,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .iconamoon--profile-fill {
@@ -339,6 +367,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .icon-park-outline--add {
@@ -354,6 +383,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .gg--list {
@@ -369,6 +399,7 @@ a {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .sidebar-container.collapsed .sidebar {
@@ -444,27 +475,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
-.wordpress--query-pagination-next {
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M7 12h2m2 0h2m3-2.5l2 2.5l-2 2.5'/%3E%3C/svg%3E");
-  background-color: currentColor;
-  -webkit-mask-image: var(--svg);
-  mask-image: var(--svg);
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-}
-
+.wordpress--query-pagination-next,
 .wordpress--query-pagination-previous {
   display: inline-block;
   width: 50px;
   height: 50px;
-  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M11 12h2m2 0h2m-9 2.5L6 12l2-2.5'/%3E%3C/svg%3E");
   background-color: currentColor;
   -webkit-mask-image: var(--svg);
   mask-image: var(--svg);
@@ -472,6 +491,14 @@ a {
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+}
+
+.wordpress--query-pagination-next {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M7 12h2m2 0h2m3-2.5l2 2.5l-2 2.5'/%3E%3C/svg%3E");
+}
+
+.wordpress--query-pagination-previous {
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='black' stroke-width='1.5' d='M11 12h2m2 0h2m-9 2.5L6 12l2-2.5'/%3E%3C/svg%3E");
 }
 
 .page-btn {
@@ -479,4 +506,45 @@ a {
   background-color: transparent;
   cursor: pointer;
   border: none;
+}
+
+/* ----- Teléfonos ----- */
+
+@media (max-width: 480px) {
+  .page-content {
+    margin-top: 16px;
+    padding: 0 12px;
+  }
+
+  .page-container-main-layoud {
+    width: 100%;
+  }
+
+  .navbar {
+    padding: 0.25em;
+  }
+
+  .navbar-container {
+    margin-top: 12px;
+  }
+
+  .btn div {
+    padding: 0.35em 0.1em;
+  }
+
+  .sidebar-container {
+    max-width: 45vw;
+    padding-top: 12px;
+  }
+
+  .toggle-arrow {
+    margin-top: 12px;
+  }
+
+  .input-span-filters {
+    flex-wrap: wrap;
+    gap: 8px;
+    min-width: 0;
+    justify-content: center;
+  }
 }

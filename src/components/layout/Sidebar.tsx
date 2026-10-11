@@ -1,15 +1,13 @@
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
+import useWindowWidth from '../utils/WindowWith'
+import { useEffect } from 'react'
 
 function WalletSidebar() {
   const location = useLocation()
-  const [collapsed, setCollapsed] = useState(false)
-
-  const [openGroups, setOpenGroups] = useState({
-    accounts: true,
-    categories: true,
-    tickets: true,
-    transactions: true,
+  const width = useWindowWidth()
+  const [collapsed, setCollapsed] = useState(() => {
+    return width <= 768
   })
 
   type GroupKey = keyof typeof openGroups
@@ -17,6 +15,23 @@ function WalletSidebar() {
   type WalletActions = 'list' | 'create'
   type Paths = `/wallet/${WalletSections}/${WalletActions}`
   const isActive = (path: Paths) => location.pathname === path
+  type OpenGroups = Record<WalletSections, boolean>
+  const [openGroups, setOpenGroups] = useState<OpenGroups>(() => {
+    const saved = sessionStorage.getItem('openGroups')
+
+    return saved
+      ? JSON.parse(saved)
+      : {
+          accounts: true,
+          categories: true,
+          tickets: true,
+          transactions: true,
+        }
+  })
+
+  useEffect(() => {
+    sessionStorage.setItem('openGroups', JSON.stringify(openGroups))
+  }, [openGroups])
   const toggleGroup = (group: GroupKey) => {
     setOpenGroups((prev) => ({
       ...prev,
@@ -193,10 +208,9 @@ function WalletSidebar() {
 
 function UsersSidebar() {
   const location = useLocation()
-  const [collapsed, setCollapsed] = useState(false)
-
-  const [openGroups, setOpenGroups] = useState({
-    profile: true,
+  const width = useWindowWidth()
+  const [collapsed, setCollapsed] = useState(() => {
+    return width <= 768
   })
 
   type GroupKey = keyof typeof openGroups
@@ -204,6 +218,20 @@ function UsersSidebar() {
   type UsersActions = 'view'
   type Paths = `/users/${UsersSections}/${UsersActions}`
   const isActive = (path: Paths) => location.pathname === path
+  type OpenGroups = Record<UsersSections, boolean>
+  const [openGroups, setOpenGroups] = useState<OpenGroups>(() => {
+    const saved = sessionStorage.getItem('openGroups')
+
+    return saved
+      ? JSON.parse(saved)
+      : {
+          profile: true,
+        }
+  })
+
+  useEffect(() => {
+    sessionStorage.setItem('openGroups', JSON.stringify(openGroups))
+  }, [openGroups])
   const toggleGroup = (group: GroupKey) => {
     setOpenGroups((prev) => ({
       ...prev,
