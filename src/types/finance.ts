@@ -121,13 +121,20 @@ export interface UpdateTicketRequest {
 export type GetDashboardResponse = {
   accounts: Account[]
   available: string
+  available_today: string
+  future_expenses: string
   savings: string
   incomes: string
   expenses: string
   average: string
   incomes_day: string
+  income_savings_day: string
   expenses_day: string
+  installments_day: string
+  expenses_savings_day: string
+  transfers_day: string
   difference: string
+  savings_difference: string
   transactions: Transaction[]
   date?: string
 }

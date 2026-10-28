@@ -164,8 +164,21 @@ export default function Resume() {
           </span>
         </div>
         <div className="dashboard-item item-2">
-          <p>Dinero Disponible: {formatCurrency(dashboard?.available ?? 0)}</p>
-          <p>Ahorro Actual: {formatCurrency(dashboard?.savings ?? 0)}</p>
+          <h3>Balance</h3>
+          <div>
+            <p>
+              Dinero Disponible Real:{' '}
+              {formatCurrency(dashboard?.available ?? 0)}
+            </p>
+            <p>
+              Gastos Futuros: {formatCurrency(dashboard?.future_expenses ?? 0)}
+            </p>
+            <p>
+              Dinero Disponible Hoy:{' '}
+              {formatCurrency(dashboard?.available_today ?? 0)}
+            </p>
+            <p>Ahorro Actual: {formatCurrency(dashboard?.savings ?? 0)}</p>
+          </div>
         </div>
         <div className="dashboard-item item-3">
           <h3>
@@ -182,10 +195,33 @@ export default function Resume() {
         </div>
         <div className="dashboard-item item-4">
           <h3>Transacciones del: {formatDate(date)}</h3>
-          <div>
-            <p>Ingresos: {formatCurrency(dashboard?.incomes_day ?? 0)}</p>
-            <p>Gastos: {formatCurrency(dashboard?.expenses_day ?? 0)}</p>
-            <p>Diferencia: {formatCurrency(dashboard?.difference ?? 0)}</p>
+          <div className="day-resume">
+            <div>
+              <p>Ingresos: {formatCurrency(dashboard?.incomes_day ?? 0)}</p>
+              <p>Gastos: {formatCurrency(dashboard?.expenses_day ?? 0)}</p>
+              <p>
+                Transferencias: {formatCurrency(dashboard?.transfers_day ?? 0)}
+              </p>
+              <p>Diferencia: {formatCurrency(dashboard?.difference ?? 0)}</p>
+            </div>
+            <div>
+              <p>
+                Ingresos de ahorro:{' '}
+                {formatCurrency(dashboard?.income_savings_day ?? 0)}
+              </p>
+              <p>
+                Gastos de ahorro:{' '}
+                {formatCurrency(dashboard?.expenses_savings_day ?? 0)}
+              </p>
+              <p>
+                Gastos a cuotas:{' '}
+                {formatCurrency(dashboard?.installments_day ?? 0)}
+              </p>
+              <p>
+                Diferencia de ahorro:{' '}
+                {formatCurrency(dashboard?.savings_difference ?? 0)}
+              </p>
+            </div>
           </div>
         </div>
         <div className="table-container">
